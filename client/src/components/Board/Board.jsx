@@ -43,7 +43,7 @@ function Board() {
 
 	useEffect(() => {
 		async function getBoard() {
-			const response = await fetch(`http://localhost:5000/board`);
+			const response = await fetch(`/board`);
 
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
