@@ -1,0 +1,44 @@
+:root{
+    --header-bg-coffee:#594545;
+    --main-bg-coffee: #815B5B;
+    --list-bg-coffee:#e3d6c5;
+    --card-bg-coffee:#FFF8EA;
+}
+
+.canvas { 
+    background-color: var(--main-bg-coffee);
+    padding: 15px;
+}
+
+.list {
+    margin: 5px;
+    
+}
+
+.addList {
+    margin-top: 5px;
+    padding-left: 15px;
+}
+
+.header {
+    padding:10px; 
+    padding-left:30px; 
+    background-color:var(--header-bg-coffee);
+}
+
+.cardContent {
+    background-color:var(--card-bg-coffee);
+    border-radius:5px;
+    padding:5px;
+    box-shadow:1px 2px 0 var(--main-bg-coffee);
+    margin-bottom:10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+    min-width: 0;
+}

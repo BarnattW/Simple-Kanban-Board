@@ -1,0 +1,94 @@
+const express = require("express");
+const router = express.Router();
+const mongoose = require("mongoose");
+const db = require("../db/mongoDB");
+
+const boardsSchema = new mongoose.Schema({
+	title: String,
+	board: Array,
+});
+const Board = mongoose.model("Board", boardsSchema);
+
+const defaultBoard = new Board({
+	title: "test",
+	board: [
+		{
+			title: "Backlog",
+			content: "",
+			id: 1675537178752,
+			cards: [
+				{
+					title: "Deployment",
+					content: "-on Netlify",
+					id: 1675537239808,
+				},
+			],
+		},
+		{
+			title: "To Do",
+			content: "",
+			id: 1675537185659,
+			cards: [
+				{
+					title: "MongoDB Integration",
+					content: "-Express routing\n-Front end and back end integration",
+					id: 1675537226110,
+				},
+			],
+		},
+		{
+			title: "Done",
+			content: "Completed Tasks",
+			id: 1675537194973,
+			cards: [],
+		},
+	],
+});
+
+router.route("/board").get(function (req, res) {
+	Board.findOne({ title: "test" }, function (err, result) {
+		if (err) {
+			console.log("Error with finding Boards");
+			return;
+		}
+
+		if (!result) {
+			defaultBoard.create();
+			res.json({ defaultBoard });
+		}
+		if (result) {
+			res.json(result);
+		}
+	});
+});
+
+router.route("/board").post(function (req, response) {
+	const query = { title: req.body.title };
+	const updatedBoard = {
+		$set: {
+			title: req.body.title,
+			board: req.body.board,
+		},
+	};
+	Board.updateOne({ title: test }, updatedBoard, function (err, res) {
+		if (err) throw err;
+		console.log("Board updated");
+		response.json(res);
+	});
+});
+
+module.exports = router;
+//users can only use an existing board or create a singular new one
+/* example board:
+	const Board = mongoose.mode("Board", boardsSchema)
+	Assuming new board
+	const board = new Board({
+		title: exampleTitle,
+		Array: [{list -> includes cards, title, content, index, id}, {list}]
+	})
+
+	const List = mongoose.model("board", boardsSchema);
+*/
+
+//case where we are updating exisiting board
+//find based on id or title -> update board -> don't rerender, only do it on init
