@@ -8,6 +8,7 @@ function Board() {
 	//stores an array that renders the lists and cards
 	const [listContent, setListContent] = useState([]);
 	const [boardTitle, setBoardTitle] = useState([]);
+	const [mongoID, setMongoID] = useState();
 
 	//adds new list to array and receives content from CreateNewUI
 	function addListContent(newContent) {
@@ -44,7 +45,7 @@ function Board() {
 
 	useEffect(() => {
 		async function getBoard() {
-			const response = await fetch(`http://localhost:5000/board`);
+			const response = await fetch(`/board`);
 
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
@@ -55,12 +56,27 @@ function Board() {
 			const board = await response.json();
 			setListContent(board.board);
 			setBoardTitle(board.title);
+			setMongoID(board._id);
+		}
+		async function updateBoard() {
+			const editedBoard = {
+				title: boardTitle[0],
+				board: listContent,
+			};
+			await fetch(`/update/${mongoID}`, {
+				method: "POST",
+				body: JSON.stringify(editedBoard),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 		}
 
-		getBoard();
+		if (boardTitle.length < 1) getBoard();
+		else updateBoard();
 
 		return;
-	}, [boardTitle]);
+	}, [listContent, boardTitle, mongoID]);
 
 	//drag and drop behavior when dragging cards
 	function dragEnd(result) {

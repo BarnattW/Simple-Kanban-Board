@@ -9,11 +9,12 @@
     background-color: var(--main-bg-coffee);
     padding: 15px;
     padding-top: 0;
+    display: flex;
+    overflow: auto;
 }
 
 .list {
     margin: 5px;
-    
 }
 
 .addList {
@@ -25,6 +26,11 @@
     padding:10px; 
     padding-left:30px; 
     background-color:var(--header-bg-coffee);
+    border-width: 0 0 1px 0;
+    border-color: var(--main-bg-coffee);
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .cardContent {
@@ -46,16 +52,9 @@
 
 .nav-menu {
     background-color: var(--header-bg-coffee);
-    width: 50px;
-    height: 100vh;
-    display: flex;
-    justify-content: left;
-    position: relative;
-    top: 0;
-    transition: 550ms;
+    height: 95vh;
 }
 
 .nav-menu.active {
-    width: 250px;
-    transition: 350ms;
+    width: 150px;
 }

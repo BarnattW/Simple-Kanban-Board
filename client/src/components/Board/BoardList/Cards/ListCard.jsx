@@ -63,7 +63,7 @@ function ListCard(props) {
 
 	//renders card contents
 	return (
-		<Card maxw="sm" width="300px" backgroundColor="#e3d6c5">
+		<Card maxw="sm" width="300px" backgroundColor="#e3d6c5" maxHeight="80vh">
 			<CardHeader padding={3} paddingBottom={0}>
 				{editing ? (
 					<CreateNewUI
@@ -102,7 +102,7 @@ function ListCard(props) {
 				)}
 			</CardHeader>
 
-			<CardBody padding="10px" paddingBottom={0}>
+			<CardBody padding="10px" paddingBottom={0} overflow="auto">
 				{props.cards.map((cardContent, index) => {
 					return (
 						<CardContent
@@ -118,7 +118,7 @@ function ListCard(props) {
 				})}
 			</CardBody>
 
-			<CardFooter padding={3} paddingTop={0}>
+			<CardFooter padding={3} paddingTop={5}>
 				<IconButton
 					variant="iconButton"
 					aria-label=""

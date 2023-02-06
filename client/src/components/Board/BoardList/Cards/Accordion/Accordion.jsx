@@ -38,6 +38,8 @@ function Accordion(props) {
 					editing={editing}
 					toggle={toggleEditing}
 					type="card"
+					currentTitle={props.cardTitle}
+					currentContent={props.cardContent}
 				/>
 			) : (
 				<div className="cardContent">

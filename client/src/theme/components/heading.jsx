@@ -1,6 +1,6 @@
 import { defineStyleConfig } from "@chakra-ui/react";
 
-const Button = defineStyleConfig({
+const Heading = defineStyleConfig({
 	baseStyle: {},
 
 	sizes: {
@@ -11,6 +11,7 @@ const Button = defineStyleConfig({
 		boardHeading: {
 			color: "#FFF8EA",
 			marginLeft: "30px",
+			paddingTop: "0.5%",
 		},
 	},
 
@@ -19,4 +20,4 @@ const Button = defineStyleConfig({
 	},
 });
 
-export default Button;
+export default Heading;

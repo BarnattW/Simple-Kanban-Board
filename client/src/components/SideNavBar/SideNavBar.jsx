@@ -1,11 +1,7 @@
 import Sidebar from "./Sidebar";
 
 function SideNavBar() {
-	return (
-		<div>
-			<Sidebar />
-		</div>
-	);
+	return <Sidebar />;
 }
 
 export default SideNavBar;

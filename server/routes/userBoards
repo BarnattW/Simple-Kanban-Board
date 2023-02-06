@@ -46,31 +46,33 @@ const defaultBoard = new Board({
 });
 
 router.route("/board").get(function (req, res) {
-	Board.findOne({ title: "test" }, function (err, result) {
+	const query = { _id: req.params.id };
+	Board.findOne({ _id: "63df02b3b6f20b8bc067156b" }, function (err, result) {
 		if (err) {
 			console.log("Error with finding Boards");
 			return;
 		}
 
-		if (!result) {
+		if (result == null) {
+			console.log("No results");
 			defaultBoard.create();
 			res.json({ defaultBoard });
-		}
-		if (result) {
+		} else {
+			console.log("Returning Result");
 			res.json(result);
 		}
 	});
 });
 
-router.route("/board").post(function (req, response) {
-	const query = { title: req.body.title };
+router.route("/update/:id").post(function (req, response) {
+	const query = { _id: req.params.id };
 	const updatedBoard = {
 		$set: {
 			title: req.body.title,
 			board: req.body.board,
 		},
 	};
-	Board.updateOne({ title: test }, updatedBoard, function (err, res) {
+	Board.updateOne(query, updatedBoard, function (err, res) {
 		if (err) throw err;
 		console.log("Board updated");
 		response.json(res);
