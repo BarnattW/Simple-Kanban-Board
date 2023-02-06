@@ -8,6 +8,7 @@
 .canvas { 
     background-color: var(--main-bg-coffee);
     padding: 15px;
+    padding-top: 0;
 }
 
 .list {
@@ -41,4 +42,20 @@
 .flex {
     display: flex;
     min-width: 0;
+}
+
+.nav-menu {
+    background-color: var(--header-bg-coffee);
+    width: 50px;
+    height: 100vh;
+    display: flex;
+    justify-content: left;
+    position: relative;
+    top: 0;
+    transition: 550ms;
+}
+
+.nav-menu.active {
+    width: 250px;
+    transition: 350ms;
 }

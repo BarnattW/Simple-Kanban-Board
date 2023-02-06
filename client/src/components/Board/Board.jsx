@@ -2,11 +2,12 @@ import BoardHeader from "./BoardHeader";
 import BoardCanvas from "./BoardCanvas";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useState, useEffect } from "react";
+import SideNavBar from "../SideNavBar/SideNavBar";
 
 function Board() {
 	//stores an array that renders the lists and cards
 	const [listContent, setListContent] = useState([]);
-	console.log(JSON.stringify(listContent));
+	const [boardTitle, setBoardTitle] = useState([]);
 
 	//adds new list to array and receives content from CreateNewUI
 	function addListContent(newContent) {
@@ -43,7 +44,7 @@ function Board() {
 
 	useEffect(() => {
 		async function getBoard() {
-			const response = await fetch(`/board`);
+			const response = await fetch(`http://localhost:5000/board`);
 
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
@@ -52,15 +53,14 @@ function Board() {
 			}
 
 			const board = await response.json();
-			console.log(board.board);
-			const parse = board.board;
-			setListContent(parse);
+			setListContent(board.board);
+			setBoardTitle(board.title);
 		}
 
 		getBoard();
 
 		return;
-	}, [listContent.length]);
+	}, [boardTitle]);
 
 	//drag and drop behavior when dragging cards
 	function dragEnd(result) {
@@ -99,18 +99,23 @@ function Board() {
 	}
 
 	return (
-		<div>
-			<BoardHeader />
-			<DragDropContext onDragEnd={dragEnd}>
-				<BoardCanvas
-					listContent={listContent}
-					addListContent={addListContent}
-					updateCards={updateCards}
-					updateLists={updateLists}
-					deleteLists={deleteLists}
-				/>
-			</DragDropContext>
-		</div>
+		<>
+			<div style={{ display: "flex" }}>
+				<SideNavBar />
+				<div>
+					<BoardHeader boardTitle={boardTitle} />
+					<DragDropContext onDragEnd={dragEnd}>
+						<BoardCanvas
+							listContent={listContent}
+							addListContent={addListContent}
+							updateCards={updateCards}
+							updateLists={updateLists}
+							deleteLists={deleteLists}
+						/>
+					</DragDropContext>
+				</div>
+			</div>
+		</>
 	);
 }
 

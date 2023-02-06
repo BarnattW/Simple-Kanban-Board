@@ -28,6 +28,10 @@ const Button = defineStyleConfig({
 			color: "#815B5B",
 			_hover: { color: "#594545" },
 		},
+		navIconButton: {
+			color: "#FFF8EA",
+			_hover: { color: "#e3d6c5" },
+		},
 	},
 
 	defaultProps: {
