@@ -28,13 +28,6 @@ function SideBar() {
 						icon={<HamburgerIcon boxSize={6} />}
 						margin={1}
 					/>
-					<Text
-						flexGrow="1"
-						variant="navMenu"
-						className={navActive ? "" : "hidden"}
-					>
-						Menu
-					</Text>
 				</div>
 				<ul className={navActive ? "" : "hidden"}>
 					<li>

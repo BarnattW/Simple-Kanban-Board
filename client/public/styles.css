@@ -5,16 +5,34 @@
     --card-bg-coffee:#FFF8EA;
 }
 
+.app {
+    height: 100vh;
+	display: flex;
+        flex-direction: column;
+}
+
 .canvas { 
     background-color: var(--main-bg-coffee);
-    padding: 15px;
-    padding-top: 0;
-    display: flex;
     overflow: auto;
+    flex-direction: column;
+    display: flex;
+}
+
+.boardList {
+    background-color: var(--main-bg-coffee);
+    overflow: auto;
+    flex-direction: row;
+    display: flex;
+    flex-grow: 1;
+    margin-top: 10px;
+    position: absolute;
 }
 
 .list {
-    margin: 5px;
+    margin-left: 10px;
+    max-height: 100%;
+    display: inline-block;
+    height: 100%;
 }
 
 .addList {
@@ -52,9 +70,27 @@
 
 .nav-menu {
     background-color: var(--header-bg-coffee);
-    height: 95vh;
+    min-height: 100%;
 }
 
 .nav-menu.active {
     width: 150px;
+    min-width: 150px;
 }
+
+ /* Firefox */
+ * {
+    scrollbar-width: auto;
+    scrollbar-color: #640c0c;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 13px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--header-bg-coffee);
+    border-radius: 20px;
+  }

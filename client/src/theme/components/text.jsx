@@ -20,7 +20,7 @@ const Text = defineStyleConfig({
 		navMenu: {
 			color: "#FFF8EA",
 			marginBottom: "4%",
-			padding: "5% 1% 5% 1%",
+			padding: "5% 1% 25% 0",
 			fontSize: "xl",
 		},
 	},

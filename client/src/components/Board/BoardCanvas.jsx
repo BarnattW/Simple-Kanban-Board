@@ -5,7 +5,7 @@ import AddBoardList from "./BoardList/AddBoardList";
 function BoardCanvas(props) {
 	
 	return (
-		<div className="canvas">
+		<div className="boardList">
 			{props.listContent.map((listItem, index) => {
 				return (
 					<BoardList

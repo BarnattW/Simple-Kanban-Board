@@ -12,6 +12,8 @@ const Heading = defineStyleConfig({
 			color: "#FFF8EA",
 			marginLeft: "30px",
 			paddingTop: "0.5%",
+			position: "relative",
+			display: "block",
 		},
 	},
 

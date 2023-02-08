@@ -63,7 +63,14 @@ function ListCard(props) {
 
 	//renders card contents
 	return (
-		<Card maxw="sm" width="300px" backgroundColor="#e3d6c5" maxHeight="80vh">
+		<Card
+			maxw="sm"
+			width="300px"
+			backgroundColor="#e3d6c5"
+			maxHeight="100%"
+			display="flex"
+			flexDirection="column"
+		>
 			<CardHeader padding={3} paddingBottom={0}>
 				{editing ? (
 					<CreateNewUI
@@ -102,7 +109,7 @@ function ListCard(props) {
 				)}
 			</CardHeader>
 
-			<CardBody padding="10px" paddingBottom={0} overflow="auto">
+			<CardBody padding="10px" paddingBottom={0} overflowY="auto">
 				{props.cards.map((cardContent, index) => {
 					return (
 						<CardContent

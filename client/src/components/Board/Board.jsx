@@ -45,7 +45,7 @@ function Board() {
 
 	useEffect(() => {
 		async function getBoard() {
-			const response = await fetch(`/board`);
+			const response = await fetch(`http://localhost:5000/board`);
 
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
@@ -63,7 +63,7 @@ function Board() {
 				title: boardTitle[0],
 				board: listContent,
 			};
-			await fetch(`/update/${mongoID}`, {
+			await fetch(`http://localhost:5000/update/${mongoID}`, {
 				method: "POST",
 				body: JSON.stringify(editedBoard),
 				headers: {
@@ -116,9 +116,9 @@ function Board() {
 
 	return (
 		<>
-			<div style={{ display: "flex" }}>
+			<div style={{ display: "flex", flexDirection: "row", flexGrow: "1" }}>
 				<SideNavBar />
-				<div>
+				<div className="canvas">
 					<BoardHeader boardTitle={boardTitle} />
 					<DragDropContext onDragEnd={dragEnd}>
 						<BoardCanvas
