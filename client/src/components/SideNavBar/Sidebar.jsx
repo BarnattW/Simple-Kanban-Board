@@ -1,6 +1,7 @@
 import { IconButton, Text } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function SideBar() {
 	const [navActive, setNavActive] = useState(false);
@@ -31,10 +32,12 @@ function SideBar() {
 				</div>
 				<ul className={navActive ? "" : "hidden"}>
 					<li>
-						<Text variant="navItem">Boards</Text>
+						<Link to="/boards">
+							<Text variant="navItem">Boards</Text>
+						</Link>
 					</li>
 					<li>
-						<Text variant="navItem">Your Boards</Text>
+						<Text variant="navItem">About</Text>
 					</li>
 					<li>
 						<Text variant="navItem">Settings</Text>

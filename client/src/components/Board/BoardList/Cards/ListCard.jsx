@@ -67,7 +67,7 @@ function ListCard(props) {
 			maxw="sm"
 			width="300px"
 			backgroundColor="#e3d6c5"
-			maxHeight="100%"
+			maxHeight="90vh"
 			display="flex"
 			flexDirection="column"
 		>
@@ -109,7 +109,12 @@ function ListCard(props) {
 				)}
 			</CardHeader>
 
-			<CardBody padding="10px" paddingBottom={0} overflowY="auto">
+			<CardBody
+				padding="10px"
+				paddingBottom={0}
+				overflowY="auto"
+				maxHeight="60vh"
+			>
 				{props.cards.map((cardContent, index) => {
 					return (
 						<CardContent

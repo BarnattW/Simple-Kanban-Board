@@ -68,6 +68,7 @@ function CreateNewUI(props) {
 					backgroundColor: "#FFF8EA",
 					borderRadius: "20px",
 					display: `${!props.toggleValue ? "inline-block" : "none"}`,
+					minWidth: "250px",
 					maxWidth: "300px",
 				}}
 			>
