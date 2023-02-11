@@ -57,19 +57,19 @@ function Accordion(props) {
 						<IconButton
 							variant="cardIconButton"
 							aria-label=""
-							icon={<EditIcon />}
+							icon={<EditIcon boxSize={4} />}
 							onClick={toggleEditing}
 						></IconButton>
 						<IconButton
 							variant="cardIconButton"
 							aria-label=""
-							icon={<DeleteIcon />}
+							icon={<DeleteIcon boxSize={4} />}
 							onClick={deleteContent}
 						></IconButton>
 						<IconButton
 							variant="cardIconButton"
 							aria-label=""
-							icon={<TriangleDownIcon />}
+							icon={<TriangleDownIcon boxSize={4} />}
 							onClick={showContent}
 						></IconButton>
 					</div>

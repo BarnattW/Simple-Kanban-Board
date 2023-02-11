@@ -88,6 +88,9 @@ function CreateNewUI(props) {
 					placeholder="Enter any additional notes or details"
 					resize="none"
 					borderRadius={0}
+					whiteSpace="pre-line"
+					overflow-wrap="break-word"
+					rows="2"
 				/>
 				<IconButton
 					backgroundColor="#FFF8EA"

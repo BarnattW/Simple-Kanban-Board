@@ -53,7 +53,6 @@
 .cardContent {
     background-color:var(--card-bg-coffee);
     border-radius:5px;
-    padding:5px;
     box-shadow:1px 2px 0 var(--main-bg-coffee);
     margin-bottom:10px;
 }

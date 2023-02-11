@@ -7,47 +7,55 @@ const boardsSchema = new mongoose.Schema({
 	title: String,
 	board: Array,
 });
-const Board = mongoose.model("Board", boardsSchema);
+const userSchema = new mongoose.Schema({
+	userBoards: [boardsSchema],
+});
+
+const Board = mongoose.model("Board", userSchema);
 
 const defaultBoard = new Board({
-	title: "test",
-	board: [
+	userBoards: [
 		{
-			title: "Backlog",
-			content: "",
-			id: 1675537178752,
-			cards: [
+			title: "test",
+			board: [
 				{
-					title: "Deployment",
-					content: "-on Netlify",
-					id: 1675537239808,
+					title: "Backlog",
+					content: "",
+					id: 1675537178752,
+					cards: [
+						{
+							title: "Deployment",
+							content: "-on Netlify",
+							id: 1675537239808,
+						},
+					],
+				},
+				{
+					title: "To Do",
+					content: "",
+					id: 1675537185659,
+					cards: [
+						{
+							title: "MongoDB Integration",
+							content: "-Express routing\n-Front end and back end integration",
+							id: 1675537226110,
+						},
+					],
+				},
+				{
+					title: "Done",
+					content: "Completed Tasks",
+					id: 1675537194973,
+					cards: [],
 				},
 			],
-		},
-		{
-			title: "To Do",
-			content: "",
-			id: 1675537185659,
-			cards: [
-				{
-					title: "MongoDB Integration",
-					content: "-Express routing\n-Front end and back end integration",
-					id: 1675537226110,
-				},
-			],
-		},
-		{
-			title: "Done",
-			content: "Completed Tasks",
-			id: 1675537194973,
-			cards: [],
 		},
 	],
 });
 
 router.route("/board").get(function (req, res) {
 	const query = { _id: req.params.id };
-	Board.findOne({ _id: "63df02b3b6f20b8bc067156b" }, function (err, result) {
+	Board.findOne({}, function (err, result) {
 		if (err) {
 			console.log("Error with finding Boards");
 			return;
@@ -55,7 +63,8 @@ router.route("/board").get(function (req, res) {
 
 		if (result == null) {
 			console.log("No results");
-			defaultBoard.create();
+			defaultBoard.save();
+			console.log(defaultBoard);
 			res.json({ defaultBoard });
 		} else {
 			console.log("Returning Result");
@@ -80,17 +89,3 @@ router.route("/update/:id").post(function (req, response) {
 });
 
 module.exports = router;
-//users can only use an existing board or create a singular new one
-/* example board:
-	const Board = mongoose.mode("Board", boardsSchema)
-	Assuming new board
-	const board = new Board({
-		title: exampleTitle,
-		Array: [{list -> includes cards, title, content, index, id}, {list}]
-	})
-
-	const List = mongoose.model("board", boardsSchema);
-*/
-
-//case where we are updating exisiting board
-//find based on id or title -> update board -> don't rerender, only do it on init

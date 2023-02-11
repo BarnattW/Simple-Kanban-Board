@@ -13,11 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./db/mongoDB");
 app.use(require("./routes/userBoards"));
 
-app.get("/", function (req, res) {
-	res.sendFile(path.join(__dirname, "/../build/index.html"));
-});
-
-app.get("/boards", function (req, res) {
+app.get("*", function (req, res) {
 	res.sendFile(path.join(__dirname, "/../build/index.html"));
 });
 

@@ -53,10 +53,10 @@ function Board() {
 				return;
 			}
 
-			const board = await response.json();
-			setListContent(board.board);
-			setBoardTitle(board.title);
-			setMongoID(board._id);
+			const user = await response.json();
+			setListContent(user.userBoards[0].board);
+			setBoardTitle(user.userBoards[0].title);
+			setMongoID(user.userBoards[0]._id);
 		}
 		async function updateBoard() {
 			const editedBoard = {
