@@ -1,5 +1,6 @@
 import SideNavBar from "../SideNavBar/SideNavBar";
 import { useState, useEffect } from "react";
+import BoardDisplay from "./BoardDisplay";
 
 function ViewBoards() {
 	const [userBoards, setUserBoards] = useState([]);
@@ -7,7 +8,7 @@ function ViewBoards() {
 
 	useEffect(() => {
 		async function getUserBoards() {
-			const response = await fetch(`http://localhost:5000/board`);
+			const response = await fetch(`http://localhost:5000/userBoards`);
 
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
@@ -25,13 +26,14 @@ function ViewBoards() {
 	}, [test, userBoards.length]);
 
 	return (
-		<div style={{ display: "flex", flexDirection: "row", flexGrow: "1" }}>
+		<div
+			style={{
+				display: "flex",
+				flexGrow: "1",
+			}}
+		>
 			<SideNavBar />
-			<div>
-				{userBoards.map((board, index) => {
-					return <div key={index}>{board.title}</div>;
-				})}
-			</div>
+			<BoardDisplay userBoards={userBoards} />
 		</div>
 	);
 }

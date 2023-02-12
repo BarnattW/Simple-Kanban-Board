@@ -23,6 +23,16 @@ const Text = defineStyleConfig({
 			padding: "5% 1% 25% 0",
 			fontSize: "xl",
 		},
+		boardDisplayTitle: {
+			position: "absolute",
+			top: "30%",
+			left: "50%",
+			transform: "translate(-50%, -50%)",
+			textOverflow: "ellipsis",
+			color: "#815B5B",
+			fontWeight: "bold",
+			fontSize: "20px",
+		},
 	},
 
 	defaultProps: {},

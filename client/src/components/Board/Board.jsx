@@ -45,7 +45,11 @@ function Board() {
 
 	useEffect(() => {
 		async function getBoard() {
-			const response = await fetch(`http://localhost:5000/board`);
+			const url = window.location.href;
+			const id = url.split("/");
+			const response = await fetch(
+				`http://localhost:5000/board/${id[id.length - 1]}`
+			);
 
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
@@ -55,12 +59,12 @@ function Board() {
 
 			const user = await response.json();
 			setListContent(user.userBoards[0].board);
-			setBoardTitle(user.userBoards[0].title);
+			setBoardTitle(user.userBoards.title);
 			setMongoID(user.userBoards[0]._id);
 		}
 		async function updateBoard() {
 			const editedBoard = {
-				title: boardTitle[0],
+				title: boardTitle,
 				board: listContent,
 			};
 			await fetch(`http://localhost:5000/update/${mongoID}`, {
@@ -72,7 +76,7 @@ function Board() {
 			});
 		}
 
-		if (boardTitle.length < 1) getBoard();
+		if (boardTitle) getBoard();
 		else updateBoard();
 
 		return;

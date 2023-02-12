@@ -15,6 +15,10 @@ const Heading = defineStyleConfig({
 			position: "relative",
 			display: "block",
 		},
+		displayHeading: {
+			color: "#594545",
+			paddingBottom: "20px",
+		},
 	},
 
 	defaultProps: {
