@@ -53,7 +53,7 @@ const defaultBoard = new Board({
 	],
 });
 
-router.route("/userBoards").get(function (req, res) {
+router.route("/boards").get(function (req, res) {
 	const query = { _id: req.params.id };
 	Board.findOne({}, function (err, result) {
 		if (err) {

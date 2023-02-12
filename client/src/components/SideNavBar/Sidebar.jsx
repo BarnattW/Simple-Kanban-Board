@@ -32,7 +32,7 @@ function SideBar() {
 				</div>
 				<ul className={navActive ? "" : "hidden"}>
 					<li>
-						<Link to="/userBoards">
+						<Link to="/boards">
 							<Text variant="navItem">Boards</Text>
 						</Link>
 					</li>

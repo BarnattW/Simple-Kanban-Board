@@ -8,7 +8,7 @@ function ViewBoards() {
 
 	useEffect(() => {
 		async function getUserBoards() {
-			const response = await fetch(`http://localhost:5000/userBoards`);
+			const response = await fetch(`http://localhost:5000/boards`);
 
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
