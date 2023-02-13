@@ -4,7 +4,7 @@ import BoardDisplay from "./BoardDisplay";
 
 function ViewBoards() {
 	const [userBoards, setUserBoards] = useState([]);
-	const [test, setTest] = useState();
+	const [createBoard, setCreateBoard] = useState(false);
 
 	useEffect(() => {
 		async function getUserBoards() {
@@ -18,22 +18,54 @@ function ViewBoards() {
 
 			const user = await response.json();
 			setUserBoards(user.userBoards);
-			setTest(userBoards.length);
 		}
 		getUserBoards();
 
 		return;
-	}, [test, userBoards.length]);
+	}, [createBoard, userBoards.length]);
+
+	async function createNewBoard() {
+		const newBoard = {
+			title: "Testing",
+		};
+		await fetch(`http://localhost:5000/create`, {
+			method: "POST",
+			body: JSON.stringify(newBoard),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		setCreateBoard((prevBool) => {
+			return !prevBool;
+		});
+	}
+
+	async function deleteBoard(mongoID) {
+		await fetch(`http://localhost:5000/delete/${mongoID}`, {
+			method: "POST",
+		});
+
+		setCreateBoard((prevBool) => {
+			return !prevBool;
+		});
+	}
 
 	return (
 		<div
 			style={{
 				display: "flex",
+				alignItems: "flex-start",
+				overflowY: "auto",
 				flexGrow: "1",
 			}}
 		>
 			<SideNavBar />
-			<BoardDisplay userBoards={userBoards} />
+			<BoardDisplay
+				userBoards={userBoards}
+				createNewBoard={createNewBoard}
+				deleteBoard={deleteBoard}
+			/>
 		</div>
 	);
 }

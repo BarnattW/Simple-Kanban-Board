@@ -1,17 +1,8 @@
-import {
-	Text,
-	Heading,
-	Card,
-	CardBody,
-	Image,
-	IconButton,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import { AddIcon } from "@chakra-ui/icons";
+import { Text, Heading, Card, CardBody, Image } from "@chakra-ui/react";
+import DisplayCard from "./DisplayCard/DisplayCard";
+import PopoverForm from "./DisplayCard/PopoverForm/PopoverForm";
 
 function BoardDisplay(props) {
-	function createNewBoard() {}
-
 	return (
 		<div className="userBoardsContainer">
 			<div className="userBoardsDisplay">
@@ -27,20 +18,7 @@ function BoardDisplay(props) {
 								}}
 								key={index}
 							>
-								<Link to={`/board/${board._id}`} key={index}>
-									<Card backgroundColor="#FFF8EA">
-										<CardBody padding="0">
-											<Text variant="boardDisplayTitle">{board.title}</Text>
-											<Image
-												src="svg/layered-waves-haikei.svg"
-												overflow="hidden"
-												maxWidth="100%"
-												height="auto"
-												borderRadius={5}
-											></Image>
-										</CardBody>
-									</Card>
-								</Link>
+								<DisplayCard board={board} deleteBoard={props.deleteBoard} />
 							</div>
 						);
 					})}
@@ -54,14 +32,7 @@ function BoardDisplay(props) {
 								height="auto"
 								borderRadius={5}
 							></Image>
-							<IconButton
-								position="absolute"
-								top="50%"
-								left="50%"
-								transform="translate(-50%, -50%)"
-								icon={<AddIcon />}
-								onClick={createNewBoard}
-							></IconButton>
+							<PopoverForm createNewBoard={props.createNewBoard} />
 						</CardBody>
 					</Card>
 				</div>

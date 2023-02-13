@@ -32,6 +32,15 @@ const Button = defineStyleConfig({
 			color: "#FFF8EA",
 			_hover: { color: "#e3d6c5" },
 		},
+		boardDisplayIconButton: {
+			position: "absolute",
+			top: "50%",
+			left: "50%",
+			transform: "translate(-50%, -50%)",
+			bg: "#815B5B",
+			color: "#FFF8EA",
+			_hover: { backgroundColor: "#FFF8EA", color: "#815B5B" },
+		},
 	},
 
 	defaultProps: {

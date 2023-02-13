@@ -16,6 +16,7 @@
     overflow: auto;
     flex-direction: column;
     display: flex;
+    flex-grow: 1;
 }
 
 .boardList {
@@ -69,7 +70,9 @@
 
 .nav-menu {
     background-color: var(--header-bg-coffee);
-    min-height: 100%;
+    position: sticky;
+    top: 0; 
+    height:100%;
 }
 
 .nav-menu.active {
@@ -80,6 +83,7 @@
 .userBoardsContainer {
     padding: 30px;
     flex-grow: 1;
+    display: flex;
     flex-direction: column;
     min-width: 500px;
 }

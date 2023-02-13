@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const db = require("../db/mongoDB");
 
+//MongoDb schemas for user accounts
 const boardsSchema = new mongoose.Schema({
 	title: String,
 	board: Array,
@@ -13,6 +14,7 @@ const userSchema = new mongoose.Schema({
 
 const Board = mongoose.model("Board", userSchema);
 
+//default board for new users
 const defaultBoard = new Board({
 	userBoards: [
 		{
@@ -53,6 +55,7 @@ const defaultBoard = new Board({
 	],
 });
 
+//returns boards in user account from database
 router.route("/boards").get(function (req, res) {
 	const query = { _id: req.params.id };
 	Board.findOne({}, function (err, result) {
@@ -73,26 +76,53 @@ router.route("/boards").get(function (req, res) {
 	});
 });
 
+//creates new board in database (updates userBoards)
+router.route("/create").post(function(req, response){
+	const query = {userBoards: req.params.id};
+	const createNewBoard = {
+		$push: {
+			userBoards: {
+				title: req.body.title, 
+				board: [],
+			}
+		},
+	};
+	Board.updateOne({}, createNewBoard, function(err, res){
+		if (err){
+			console.log("Could not create Board");
+			return;
+		}
+		console.log("New board created");
+		response.json(res);
+	});
+});
+
+//returns specific board from userBoards in database
 router.route("/board/:id").get(function (req, res) {
-	const query = { "userBoards._id": req.params.id };
-	Board.findOne(query, function (err, result) {
+	const boardID = req.params.id
+	const query = { "userBoards._id": boardID };
+	Board.findOne(query,{userBoards: {$elemMatch: {_id: boardID}}} ,function (err, result) {
 		if (err) {
 			console.log(err);
 			return;
 		}
 
-		if (result == null) {
+		res.json(result)
+		/* if (result == null) {
 			console.log("No results");
 			defaultBoard.save();
 			console.log(defaultBoard);
 			res.json({ defaultBoard });
 		} else {
+			console.log(query);
 			console.log("Returning Result");
 			res.json(result);
-		}
+		} */
+		
 	});
 });
 
+//updates a specific user's board in database
 router.route("/update/:id").post(function (req, response) {
 	const query = { "userBoards._id": req.params.id };
 	const updatedBoard = {
@@ -108,4 +138,19 @@ router.route("/update/:id").post(function (req, response) {
 	});
 });
 
+//deletes specific board from user boards in database (updates board)
+router.route("/delete/:id").post(function (req, response) {
+	const boardID = req.params.id;
+	const query = { "userBoards._id": boardID };
+	const removeBoard = {
+		$pull: {
+			userBoards: {_id: boardID }
+		},
+	};
+	Board.updateOne(query, removeBoard, function (err, res) {
+		if (err) throw err;
+		console.log("Board removed");
+		response.json(res);
+	});
+});
 module.exports = router;

@@ -8,7 +8,7 @@ function Board() {
 	//stores an array that renders the lists and cards
 	const [listContent, setListContent] = useState([]);
 	const [boardTitle, setBoardTitle] = useState([]);
-	const [mongoID, setMongoID] = useState();
+	const [mongoID, setMongoID] = useState("");
 
 	//adds new list to array and receives content from CreateNewUI
 	function addListContent(newContent) {
@@ -59,9 +59,10 @@ function Board() {
 
 			const user = await response.json();
 			setListContent(user.userBoards[0].board);
-			setBoardTitle(user.userBoards.title);
+			setBoardTitle(user.userBoards[0].title);
 			setMongoID(user.userBoards[0]._id);
 		}
+
 		async function updateBoard() {
 			const editedBoard = {
 				title: boardTitle,
@@ -76,7 +77,7 @@ function Board() {
 			});
 		}
 
-		if (boardTitle) getBoard();
+		if (mongoID === "") getBoard();
 		else updateBoard();
 
 		return;
