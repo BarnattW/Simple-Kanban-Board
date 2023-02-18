@@ -9,6 +9,8 @@ const boardsSchema = new mongoose.Schema({
 	board: Array,
 });
 const userSchema = new mongoose.Schema({
+	//username: String,
+	//password: String,
 	userBoards: [boardsSchema],
 });
 
@@ -54,6 +56,36 @@ const defaultBoard = new Board({
 		},
 	],
 });
+
+/* router.route("/login").get(function (req, res) {
+	const credentials = {
+		username: req.body.username,
+		password: req.body.password,
+	};
+	Board.findOne({credentials}, function(err, result){
+		if (err){
+			console.log("Could not login to account");
+			return;
+		}
+
+		res.json(result.userBoards);
+	})
+}); */
+
+/* router.route("/createAccount").get(function (req, res) {
+	const newCredential = {
+		username: req.body.username,
+		password: req.body.password,
+		userBoards: [],
+	};
+	Board.create({ newCredential }, function (err, result) {
+		if (err){
+			console.log("Could not create account");
+			return;
+		}
+		
+	});
+}); */
 
 //returns boards in user account from database
 router.route("/boards").get(function (req, res) {

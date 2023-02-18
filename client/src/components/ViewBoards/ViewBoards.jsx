@@ -24,9 +24,9 @@ function ViewBoards() {
 		return;
 	}, [createBoard, userBoards.length]);
 
-	async function createNewBoard() {
+	async function createNewBoard(boardtitle) {
 		const newBoard = {
-			title: "Testing",
+			title: boardtitle,
 		};
 		await fetch(`http://localhost:5000/create`, {
 			method: "POST",

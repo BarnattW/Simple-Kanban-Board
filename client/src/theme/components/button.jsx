@@ -41,6 +41,20 @@ const Button = defineStyleConfig({
 			color: "#FFF8EA",
 			_hover: { backgroundColor: "#FFF8EA", color: "#815B5B" },
 		},
+		createBoardButton: {
+			marginTop: "5px",
+			borderRadius: "10px",
+			bg: "#815B5B",
+			color: "#FFF8EA",
+			_hover: { backgroundColor: "#594545", color: "#FFF8EA" },
+		},
+		deleteButton: {
+			marginTop: "5px",
+			borderRadius: "10px",
+			bg: "red.500",
+			color: "#FFF8EA",
+			_hover: { backgroundColor: "red.600", color: "#FFF8EA" },
+		},
 	},
 
 	defaultProps: {

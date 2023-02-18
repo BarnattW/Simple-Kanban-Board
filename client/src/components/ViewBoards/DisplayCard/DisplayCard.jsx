@@ -1,6 +1,6 @@
-import { Card, CardBody, Text, IconButton, Image } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { Card, CardBody, Text, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import AlertDialogues from "../../AlertDialogues/AlertDialogues";
 
 function DisplayCard(props) {
 	function deleteBoard() {
@@ -21,11 +21,7 @@ function DisplayCard(props) {
 					></Image>
 				</CardBody>
 			</Link>
-			<IconButton
-				variant="boardDisplayIconButton"
-				icon={<DeleteIcon />}
-				onClick={deleteBoard}
-			></IconButton>
+			<AlertDialogues delete={deleteBoard} deleteType="Board" />
 		</Card>
 	);
 }
