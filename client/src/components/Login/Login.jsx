@@ -49,7 +49,7 @@ function Login(props) {
 				height="100%"
 				paddingLeft="20px"
 				paddingRight="20px"
-				minW="400px"
+				minW="350px"
 			>
 				<CardHeader>
 					<Heading>
