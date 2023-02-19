@@ -9,11 +9,28 @@ import {
 	Button,
 	Heading,
 	Image,
+	IconButton,
+	InputGroup,
+	InputRightElement,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { ViewIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login(props) {
 	const isLogin = props.type === "login" ? true : false;
+	const navigate = useNavigate();
+	const [show, setShow] = useState(false);
+	const handleClick = () => setShow(!show);
+
+	function login(event) {
+		event.preventDefault();
+		navigate("/boards");
+	}
+	function signup(event) {
+		event.preventDefault();
+		navigate("/boards");
+	}
 
 	return (
 		<div style={{ display: "flex", flexDirection: "row", height: "100%" }}>
@@ -39,14 +56,25 @@ function Login(props) {
 					</Heading>
 				</CardHeader>
 				<CardBody>
-					<form>
-						<FormControl>
-							<FormLabel>Email</FormLabel>
+					<form onSubmit={isLogin ? login : signup}>
+						<FormControl isRequired>
+							<FormLabel requiredIndicator>Email</FormLabel>
 							<Input type="email" />
 						</FormControl>
-						<FormControl>
-							<FormLabel>Password</FormLabel>
-							<Input type="password" />
+						<FormControl isRequired>
+							<FormLabel requiredIndicator>
+								{isLogin ? "Password" : "Password (min. 8 characters)"}
+							</FormLabel>
+							<InputGroup maxW="450px">
+								<Input type={show ? "text" : "password"} />
+								<InputRightElement>
+									<IconButton
+										icon={<ViewIcon />}
+										variant="cardIconButton"
+										onClick={handleClick}
+									></IconButton>
+								</InputRightElement>
+							</InputGroup>
 						</FormControl>
 						<Button variant="userAuthButton" type="submit">
 							{isLogin ? "Login" : "Create"}
@@ -55,9 +83,11 @@ function Login(props) {
 				</CardBody>
 				<CardFooter>
 					<p>
-						{isLogin ? "Don't have an account?" : "Already have an account?"}
-						<Link to={isLogin ? "/signup" : "/login"}>
-							{" "}
+						{isLogin ? "Don't have an account? " : "Already have an account? "}
+						<Link
+							to={isLogin ? "/signup" : "/login"}
+							style={{ color: "black", textDecoration: "underline" }}
+						>
 							{isLogin ? "Create an account" : "Sign back in"}
 						</Link>
 					</p>

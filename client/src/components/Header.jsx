@@ -1,14 +1,17 @@
-import { Text, Button } from "@chakra-ui/react";
+import { Text, Button, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 function Header() {
 	return (
 		<div className="header">
-			<Link to="/">
-				<Text fontSize="2xl" color="var(--list-bg-coffee)">
-					Simple Kanban
-				</Text>
-			</Link>
+			<div className="flex">
+				<Image src="svg/logo.svg" boxSize={10}></Image>
+				<Link to="/">
+					<Text fontSize="2xl" color="var(--list-bg-coffee)">
+						Simple Kanban
+					</Text>
+				</Link>
+			</div>
 			<div>
 				<Link to="/login">
 					<Button variant="headerAccountButton">Login</Button>
