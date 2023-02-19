@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Header() {
 	return (
 		<div className="header">
-			<div className="flex">
+			<div style={{ display: "flex", minWidth: "250px" }}>
 				<Image src="svg/logo.svg" boxSize={10}></Image>
 				<Link to="/">
 					<Text fontSize="2xl" color="var(--list-bg-coffee)">
@@ -17,9 +17,6 @@ function Header() {
 					<Button variant="headerAccountButton">Login</Button>
 				</Link>
 				<span style={{ padding: "10px" }}></span>
-				<Link to="/signup">
-					<Button variant="headerAccountButton">Sign Up</Button>
-				</Link>
 			</div>
 		</div>
 	);
