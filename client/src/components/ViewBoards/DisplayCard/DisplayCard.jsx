@@ -21,7 +21,11 @@ function DisplayCard(props) {
 					></Image>
 				</CardBody>
 			</Link>
-			<AlertDialogues delete={deleteBoard} deleteType="Board" />
+			<AlertDialogues
+				delete={deleteBoard}
+				deleteType="Board"
+				type="boardDisplayIconButton"
+			/>
 		</Card>
 	);
 }

@@ -8,6 +8,7 @@ const Heading = defineStyleConfig({
 		md: {},
 	},
 	variants: {
+		//Header
 		boardHeading: {
 			color: "#FFF8EA",
 			marginLeft: "30px",
@@ -15,6 +16,7 @@ const Heading = defineStyleConfig({
 			position: "relative",
 			display: "block",
 		},
+		//viewBoards
 		displayHeading: {
 			color: "#594545",
 			paddingBottom: "20px",

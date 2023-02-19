@@ -11,12 +11,14 @@ import {
 	FormControl,
 	FormLabel,
 	Input,
+	useBoolean,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
 function PopoverForm(props) {
 	const [boardTitle, setBoardTitle] = useState("");
+	const [togglePopover, setTogglePopover] = useBoolean();
 
 	function createNewBoard(event) {
 		event.preventDefault();
@@ -29,7 +31,12 @@ function PopoverForm(props) {
 	}
 
 	return (
-		<Popover placement="right">
+		<Popover
+			placement="right"
+			isOpen={togglePopover}
+			onOpen={setTogglePopover.on}
+			onClose={setTogglePopover.off}
+		>
 			<PopoverTrigger>
 				<IconButton
 					variant="boardDisplayIconButton"
@@ -48,7 +55,11 @@ function PopoverForm(props) {
 							<FormLabel color="#815B5B">Board Title</FormLabel>
 							<Input value={boardTitle} onChange={updateInput} />
 						</FormControl>
-						<Button variant="createBoardButton" type="submit">
+						<Button
+							variant="createBoardButton"
+							type="submit"
+							onClick={setTogglePopover.off}
+						>
 							Create
 						</Button>
 					</form>

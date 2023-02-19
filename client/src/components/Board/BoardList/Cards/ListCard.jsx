@@ -7,10 +7,11 @@ import {
 	IconButton,
 	Text,
 } from "@chakra-ui/react";
-import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { AddIcon, EditIcon } from "@chakra-ui/icons";
 import CardContent from "./CardContent";
 import { useState } from "react";
 import CreateNewUI from "./CreateNewUI";
+import AlertDialogues from "../../../AlertDialogues/AlertDialogues";
 
 function ListCard(props) {
 	const [toggleBool, setToggleBool] = useState(true);
@@ -56,8 +57,6 @@ function ListCard(props) {
 
 	//delete List
 	function deleteListContent() {
-		//toggle popup confirmation
-
 		props.deleteLists(props.index);
 	}
 
@@ -91,12 +90,11 @@ function ListCard(props) {
 							>
 								{props.listTitle}
 							</Heading>
-							<IconButton
-								variant="listIconButton"
-								aria-label=""
-								icon={<DeleteIcon />}
-								onClick={deleteListContent}
-							></IconButton>
+							<AlertDialogues
+								delete={deleteListContent}
+								deleteType="List"
+								type="listIconButton"
+							/>
 							<IconButton
 								variant="listIconButton"
 								aria-label=""

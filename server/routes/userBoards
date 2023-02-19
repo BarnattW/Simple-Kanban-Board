@@ -87,7 +87,7 @@ const defaultBoard = new Board({
 	});
 }); */
 
-//returns boards in user account from database
+//retreives all boards in user account from database
 router.route("/boards").get(function (req, res) {
 	const query = { _id: req.params.id };
 	Board.findOne({}, function (err, result) {

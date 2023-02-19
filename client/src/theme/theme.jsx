@@ -3,6 +3,7 @@ import styles from "./styles";
 import Button from "./components/button";
 import Heading from "./components/heading";
 import Text from "./components/text";
+import Input from "./components/input";
 
 const theme = extendTheme({
 	styles,
@@ -10,6 +11,7 @@ const theme = extendTheme({
 		Button,
 		Heading,
 		Text,
+		Input,
 	},
 });
 

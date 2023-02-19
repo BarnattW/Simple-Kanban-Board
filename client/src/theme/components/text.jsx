@@ -9,6 +9,7 @@ const Text = defineStyleConfig({
 		xl: {},
 	},
 	variants: {
+		//Navbar
 		navItem: {
 			color: "#FFF8EA",
 			_hover: { color: "#815B5B", bg: "#FFF8EA" },
@@ -23,6 +24,7 @@ const Text = defineStyleConfig({
 			padding: "5% 1% 25% 0",
 			fontSize: "xl",
 		},
+		//ViewBoards
 		boardDisplayTitle: {
 			position: "absolute",
 			top: "30%",

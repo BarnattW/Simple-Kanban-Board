@@ -8,11 +8,13 @@ const Button = defineStyleConfig({
 		md: {},
 	},
 	variants: {
+		//default buttion types
 		solid: {
 			bg: "#FFF8EA",
 			color: "#815B5B",
 			_hover: { backgroundColor: "#594545", color: "#FFF8EA" },
 		},
+		//Board Component: lists and cards
 		iconButton: {
 			margin: "auto",
 			borderRadius: "50px",
@@ -28,10 +30,12 @@ const Button = defineStyleConfig({
 			color: "#815B5B",
 			_hover: { color: "#594545" },
 		},
+		//NavBar
 		navIconButton: {
 			color: "#FFF8EA",
 			_hover: { color: "#e3d6c5" },
 		},
+		//ViewBoards
 		boardDisplayIconButton: {
 			position: "absolute",
 			top: "50%",
@@ -41,6 +45,7 @@ const Button = defineStyleConfig({
 			color: "#FFF8EA",
 			_hover: { backgroundColor: "#FFF8EA", color: "#815B5B" },
 		},
+		//also used for AlertDialogues
 		createBoardButton: {
 			marginTop: "5px",
 			borderRadius: "10px",
@@ -54,6 +59,23 @@ const Button = defineStyleConfig({
 			bg: "red.500",
 			color: "#FFF8EA",
 			_hover: { backgroundColor: "red.600", color: "#FFF8EA" },
+		},
+		//Header links
+		headerAccountButton: {
+			width: "80px",
+			borderRadius: "30px",
+			bg: "#FFF8EA",
+			color: "#815B5B",
+			_hover: { backgroundColor: "#e3d6c5" },
+			fontSize: "15px",
+		},
+		//Login and signup page
+		userAuthButton: {
+			width: "100px",
+			borderRadius: "30px",
+			bg: "#815B5B",
+			color: "#FFF8EA",
+			_hover: { backgroundColor: "#594545" },
 		},
 	},
 

@@ -8,9 +8,35 @@
 .app {
     height: 100vh;
 	display: flex;
-        flex-direction: column;
+    flex-direction: column;
 }
 
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+    min-width: 0;
+    overflow: auto;
+}
+
+/* Page Header */
+.header {
+    padding:10px; 
+    padding-left:50px; 
+    padding-right:50px;
+    background-color:var(--header-bg-coffee);
+    border-width: 0 0 1px 0;
+    border-color: var(--main-bg-coffee);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Board Component */
 .canvas { 
     background-color: var(--main-bg-coffee);
     overflow: auto;
@@ -40,17 +66,6 @@
     padding-left: 15px;
 }
 
-.header {
-    padding:10px; 
-    padding-left:50px; 
-    background-color:var(--header-bg-coffee);
-    border-width: 0 0 1px 0;
-    border-color: var(--main-bg-coffee);
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
 .cardContent {
     background-color:var(--card-bg-coffee);
     border-radius:5px;
@@ -58,15 +73,7 @@
     margin-bottom:10px;
 }
 
-.hidden {
-    display: none;
-}
-
-.flex {
-    display: flex;
-    min-width: 0;
-    overflow: auto;
-}
+/* Navbar */
 
 .nav-menu {
     background-color: var(--header-bg-coffee);
@@ -80,6 +87,8 @@
     min-width: 150px;
 }
 
+
+/* viewBoards components */
 .userBoardsContainer {
     padding: 30px;
     flex-grow: 1;
@@ -104,19 +113,20 @@
     padding: 16px 16px 24px 16px;
 }
 
- /* Firefox */
- * {
+/* Scrollbar */ 
+/* Firefox */
+* {
     scrollbar-width: auto;
     scrollbar-color: #640c0c;
-  }
+}
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
+ /* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
     width: 8px;
     height: 13px;
-  }
+}
 
-  *::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background-color: var(--header-bg-coffee);
     border-radius: 20px;
-  }
+}

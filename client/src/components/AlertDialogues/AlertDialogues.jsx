@@ -18,7 +18,7 @@ function AlertDialogues(props) {
 	return (
 		<>
 			<IconButton
-				variant="boardDisplayIconButton"
+				variant={props.type}
 				icon={<DeleteIcon />}
 				onClick={onOpen}
 			></IconButton>
