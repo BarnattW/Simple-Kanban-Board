@@ -3,7 +3,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function SideBar() {
+function SideBar(props) {
 	const [navActive, setNavActive] = useState(false);
 
 	function toggleNav() {
@@ -43,7 +43,9 @@ function SideBar() {
 						<Text variant="navItem">Settings</Text>
 					</li>
 					<li>
-						<Text variant="navItem">Logout</Text>
+						<Text variant="navItem" onClick={props.logout}>
+							Logout
+						</Text>
 					</li>
 				</ul>
 			</div>

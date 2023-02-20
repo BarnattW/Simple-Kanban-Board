@@ -4,7 +4,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { useState, useEffect } from "react";
 import SideNavBar from "../SideNavBar/SideNavBar";
 
-function Board() {
+function Board(props) {
 	//stores an array that renders the lists and cards
 	const [listContent, setListContent] = useState([]);
 	const [boardTitle, setBoardTitle] = useState([]);
@@ -122,7 +122,7 @@ function Board() {
 	return (
 		<>
 			<div style={{ display: "flex", flexDirection: "row", flexGrow: "1" }}>
-				<SideNavBar />
+				<SideNavBar logout={props.logout} />
 				<div className="canvas">
 					<BoardHeader boardTitle={boardTitle} />
 					<DragDropContext onDragEnd={dragEnd}>

@@ -8,16 +8,15 @@ function DisplayCard(props) {
 	}
 
 	return (
-		<Card backgroundColor="#FFF8EA">
+		<Card backgroundColor="#FFF8EA" maxW="300px" maxH="200px">
 			<Link to={`/board/${props.board._id}`}>
 				<CardBody padding="0">
 					<Text variant="boardDisplayTitle">{props.board.title}</Text>
 					<Image
 						src="svg/layered-waves-haikei.svg"
 						overflow="hidden"
-						maxWidth="100%"
-						height="auto"
 						borderRadius={5}
+						objectFit="contain"
 					></Image>
 				</CardBody>
 			</Link>

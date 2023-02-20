@@ -12,25 +12,19 @@ function BoardDisplay(props) {
 				<div className="grid">
 					{props.userBoards.map((board, index) => {
 						return (
-							<div
-								style={{
-									display: "inline-block",
-								}}
-								key={index}
-							>
+							<div key={index}>
 								<DisplayCard board={board} deleteBoard={props.deleteBoard} />
 							</div>
 						);
 					})}
-					<Card display="inline-block" backgroundColor="#FFF8EA">
+					<Card maxW="300px" maxH="300px">
 						<CardBody padding="0">
 							<Text variant="boardDisplayTitle">Create New</Text>
 							<Image
 								src="svg/layered-waves-haikei.svg"
 								overflow="hidden"
-								maxWidth="100%"
-								height="auto"
 								borderRadius={5}
+								objectFit="contain"
 							></Image>
 							<PopoverForm createNewBoard={props.createNewBoard} />
 						</CardBody>

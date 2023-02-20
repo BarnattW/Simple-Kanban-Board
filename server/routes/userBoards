@@ -1,96 +1,58 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
-const db = require("../db/mongoDB");
+const passport = require("passport");
+const Board = require("../model/user.js");
 
-//MongoDb schemas for user accounts
-const boardsSchema = new mongoose.Schema({
-	title: String,
-	board: Array,
-});
-const userSchema = new mongoose.Schema({
-	//username: String,
-	//password: String,
-	userBoards: [boardsSchema],
-});
-
-const Board = mongoose.model("Board", userSchema);
-
-//default board for new users
-const defaultBoard = new Board({
-	userBoards: [
-		{
-			title: "test",
-			board: [
-				{
-					title: "Backlog",
-					content: "",
-					id: 1675537178752,
-					cards: [
-						{
-							title: "Deployment",
-							content: "-on Netlify",
-							id: 1675537239808,
-						},
-					],
-				},
-				{
-					title: "To Do",
-					content: "",
-					id: 1675537185659,
-					cards: [
-						{
-							title: "MongoDB Integration",
-							content: "-Express routing\n-Front end and back end integration",
-							id: 1675537226110,
-						},
-					],
-				},
-				{
-					title: "Done",
-					content: "Completed Tasks",
-					id: 1675537194973,
-					cards: [],
-				},
-			],
-		},
-	],
-});
-
-/* router.route("/login").get(function (req, res) {
-	const credentials = {
-		username: req.body.username,
-		password: req.body.password,
-	};
-	Board.findOne({credentials}, function(err, result){
-		if (err){
-			console.log("Could not login to account");
-			return;
+router.route("/user/register").post(function (req, res) {
+	Board.register(
+		{ username: req.body.username, userBoards: [] },
+		req.body.password,
+		function (err, user) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log("User created");
+				passport.authenticate("local")(req, res, function () {
+					res.json({ success: true });
+				});
+			}
 		}
+	);
+});
 
-		res.json(result.userBoards);
-	})
-}); */
-
-/* router.route("/createAccount").get(function (req, res) {
-	const newCredential = {
-		username: req.body.username,
-		password: req.body.password,
-		userBoards: [],
-	};
-	Board.create({ newCredential }, function (err, result) {
-		if (err){
-			console.log("Could not create account");
-			return;
+router.route("/user/login").post(function (req, res) {
+	passport.authenticate("local", function (err, user, info) {
+		if (err) {
+			console.log(err);
 		}
-		
+		req.login(user, function (err) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.json(user);
+			}
+		});
+	})(req, res);
+});
+
+router.route("/user/logout").get(function (req, res) {
+	req.logout(req.user, function (err) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log("Logging User Out");
+		}
 	});
-}); */
+});
+
+router.route("/user/get").get(function (req, res) {
+	res.json(req.user);
+});
 
 //retreives all boards in user account from database
-router.route("/boards").get(function (req, res) {
+router.route("/boards/:id").get(function (req, res) {
 	const query = { _id: req.params.id };
-	Board.findOne({}, function (err, result) {
+	Board.findOne(query, function (err, result) {
 		if (err) {
 			console.log("Error with finding Boards");
 			return;
@@ -98,9 +60,6 @@ router.route("/boards").get(function (req, res) {
 
 		if (result == null) {
 			console.log("No results");
-			defaultBoard.save();
-			console.log(defaultBoard);
-			res.json({ defaultBoard });
 		} else {
 			console.log("Returning Result");
 			res.json(result);
@@ -109,18 +68,18 @@ router.route("/boards").get(function (req, res) {
 });
 
 //creates new board in database (updates userBoards)
-router.route("/create").post(function(req, response){
-	const query = {userBoards: req.params.id};
+router.route("/create/:id").post(function (req, response) {
+	const query = { _id: req.body._id };
 	const createNewBoard = {
 		$push: {
 			userBoards: {
-				title: req.body.title, 
+				title: req.body.title,
 				board: [],
-			}
+			},
 		},
 	};
-	Board.updateOne({}, createNewBoard, function(err, res){
-		if (err){
+	Board.updateOne(query, createNewBoard, function (err, res) {
+		if (err) {
 			console.log("Could not create Board");
 			return;
 		}
@@ -131,27 +90,22 @@ router.route("/create").post(function(req, response){
 
 //returns specific board from userBoards in database
 router.route("/board/:id").get(function (req, res) {
-	const boardID = req.params.id
-	const query = { "userBoards._id": boardID };
-	Board.findOne(query,{userBoards: {$elemMatch: {_id: boardID}}} ,function (err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
+	if (req.isAuthenticated()) {
+		const boardID = req.params.id;
+		const query = { "userBoards._id": boardID };
+		Board.findOne(
+			query,
+			{ userBoards: { $elemMatch: { _id: boardID } } },
+			function (err, result) {
+				if (err) {
+					console.log(err);
+					return;
+				}
 
-		res.json(result)
-		/* if (result == null) {
-			console.log("No results");
-			defaultBoard.save();
-			console.log(defaultBoard);
-			res.json({ defaultBoard });
-		} else {
-			console.log(query);
-			console.log("Returning Result");
-			res.json(result);
-		} */
-		
-	});
+				res.json(result);
+			}
+		);
+	}
 });
 
 //updates a specific user's board in database

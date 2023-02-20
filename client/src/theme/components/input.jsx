@@ -19,7 +19,6 @@ const variantFormInput = definePartsStyle(() => {
 			border: "1px solid",
 			borderColor: "#e3d6c5",
 			bg: "inherit",
-			marginBottom: "24px",
 			maxW: "450px",
 			_hover: {
 				borderColor: "#594545",

@@ -1,14 +1,32 @@
 import SideNavBar from "../SideNavBar/SideNavBar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import BoardDisplay from "./BoardDisplay";
+import { UserContext } from "../UserContext";
+//import { useNavigate } from "react-router-dom";
 
-function ViewBoards() {
+function ViewBoards(props) {
 	const [userBoards, setUserBoards] = useState([]);
 	const [createBoard, setCreateBoard] = useState(false);
+	const { user, setUser } = useContext(UserContext);
+	//const navigate = useNavigate();
 
 	useEffect(() => {
+		const userID = user._id;
 		async function getUserBoards() {
-			const response = await fetch(`http://localhost:5000/boards`);
+			const data = await fetch(`http://localhost:5000/user/get`, {
+				method: "GET",
+				credentials: "include",
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			const userData = await data.json();
+			setUser(userData);
+
+			const response = await fetch(`http://localhost:5000/boards/${userID}`, {
+				method: "GET",
+			});
 
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
@@ -22,13 +40,16 @@ function ViewBoards() {
 		getUserBoards();
 
 		return;
-	}, [createBoard, userBoards.length]);
+	}, [setUser, user._id, createBoard]);
 
 	async function createNewBoard(boardtitle) {
+		const userID = user._id;
 		const newBoard = {
 			title: boardtitle,
+			_id: userID,
 		};
-		await fetch(`http://localhost:5000/create`, {
+		console.log(newBoard);
+		await fetch(`http://localhost:5000/create/${userID}`, {
 			method: "POST",
 			body: JSON.stringify(newBoard),
 			headers: {
@@ -60,7 +81,7 @@ function ViewBoards() {
 				flexGrow: "1",
 			}}
 		>
-			<SideNavBar />
+			<SideNavBar logout={props.logout} />
 			<BoardDisplay
 				userBoards={userBoards}
 				createNewBoard={createNewBoard}

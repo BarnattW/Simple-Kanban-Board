@@ -5,7 +5,7 @@ function Header() {
 	return (
 		<div className="header">
 			<div style={{ display: "flex", minWidth: "250px" }}>
-				<Image src="svg/logo.svg" boxSize={10}></Image>
+				<Image src="svg/logo.svg" boxSize={9}></Image>
 				<Link to="/">
 					<Text fontSize="2xl" color="var(--list-bg-coffee)">
 						Simple Kanban
