@@ -15,6 +15,7 @@ function App() {
 	const navigate = useNavigate();
 	const socket = useContext(SocketContext);
 	const [isConnected, setIsConnected] = useState(socket.connected);
+	console.log(user);
 
 	useEffect(() => {
 		async function getUserBoards() {
@@ -53,7 +54,7 @@ function App() {
 			credentials: "include",
 			withCredentials: true,
 		});
-		setUser();
+		setUser({});
 	}
 
 	return (
