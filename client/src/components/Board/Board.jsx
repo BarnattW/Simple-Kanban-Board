@@ -1,14 +1,19 @@
 import BoardHeader from "./BoardHeader";
 import BoardCanvas from "./BoardCanvas";
 import { DragDropContext } from "react-beautiful-dnd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import SideNavBar from "../SideNavBar/SideNavBar";
+import { UserContext } from "../UserContext";
+import { SocketContext } from "../SocketContext";
 
 function Board(props) {
 	//stores an array that renders the lists and cards
 	const [listContent, setListContent] = useState([]);
 	const [boardTitle, setBoardTitle] = useState([]);
 	const [mongoID, setMongoID] = useState("");
+	const { user } = useContext(UserContext);
+	const socket = useContext(SocketContext);
+	const userID = user._id;
 
 	//adds new list to array and receives content from CreateNewUI
 	function addListContent(newContent) {
@@ -44,23 +49,19 @@ function Board(props) {
 	}
 
 	useEffect(() => {
-		async function getBoard() {
+		function getBoard() {
 			const url = window.location.href;
-			const id = url.split("/");
-			const response = await fetch(
-				`http://localhost:5000/board/${id[id.length - 1]}`
-			);
+			const boardID = url.split("/");
+			console.log(userID, boardID[boardID.length - 1]);
 
-			if (!response.ok) {
-				const message = `An error occurred: ${response.statusText}`;
-				window.alert(message);
-				return;
-			}
+			socket.emit("getBoard", userID, boardID[boardID.length - 1]);
 
-			const user = await response.json();
-			setListContent(user.userBoards[0].board);
-			setBoardTitle(user.userBoards[0].title);
-			setMongoID(user.userBoards[0]._id);
+			socket.on("sendBoard", (result) => {
+				const user = result;
+				setListContent(user.userBoards[0].board);
+				setBoardTitle(user.userBoards[0].title);
+				setMongoID(user.userBoards[0]._id);
+			});
 		}
 
 		async function updateBoard() {
@@ -68,20 +69,14 @@ function Board(props) {
 				title: boardTitle,
 				board: listContent,
 			};
-			await fetch(`http://localhost:5000/update/${mongoID}`, {
-				method: "POST",
-				body: JSON.stringify(editedBoard),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
+			socket.emit("updateBoard", userID, mongoID, editedBoard);
 		}
 
 		if (mongoID === "") getBoard();
 		else updateBoard();
 
 		return;
-	}, [listContent, boardTitle, mongoID]);
+	}, [listContent, boardTitle, mongoID, socket, userID]);
 
 	//drag and drop behavior when dragging cards
 	function dragEnd(result) {

@@ -21,7 +21,7 @@ router.route("/user/register").post(function (req, res) {
 });
 
 router.route("/user/login").post(function (req, res) {
-	passport.authenticate("local", function (err, user, info) {
+	passport.authenticate("local", function (err, user) {
 		if (err) {
 			console.log(err);
 		}
@@ -41,6 +41,7 @@ router.route("/user/logout").get(function (req, res) {
 			console.log(err);
 		} else {
 			console.log("Logging User Out");
+			res.send({ success: true });
 		}
 	});
 });
@@ -49,94 +50,4 @@ router.route("/user/get").get(function (req, res) {
 	res.json(req.user);
 });
 
-//retreives all boards in user account from database
-router.route("/boards/:id").get(function (req, res) {
-	const query = { _id: req.params.id };
-	Board.findOne(query, function (err, result) {
-		if (err) {
-			console.log("Error with finding Boards");
-			return;
-		}
-
-		if (result == null) {
-			console.log("No results");
-		} else {
-			console.log("Returning Result");
-			res.json(result);
-		}
-	});
-});
-
-//creates new board in database (updates userBoards)
-router.route("/create/:id").post(function (req, response) {
-	const query = { _id: req.body._id };
-	const createNewBoard = {
-		$push: {
-			userBoards: {
-				title: req.body.title,
-				board: [],
-			},
-		},
-	};
-	Board.updateOne(query, createNewBoard, function (err, res) {
-		if (err) {
-			console.log("Could not create Board");
-			return;
-		}
-		console.log("New board created");
-		response.json(res);
-	});
-});
-
-//returns specific board from userBoards in database
-router.route("/board/:id").get(function (req, res) {
-	if (req.isAuthenticated()) {
-		const boardID = req.params.id;
-		const query = { "userBoards._id": boardID };
-		Board.findOne(
-			query,
-			{ userBoards: { $elemMatch: { _id: boardID } } },
-			function (err, result) {
-				if (err) {
-					console.log(err);
-					return;
-				}
-
-				res.json(result);
-			}
-		);
-	}
-});
-
-//updates a specific user's board in database
-router.route("/update/:id").post(function (req, response) {
-	const query = { "userBoards._id": req.params.id };
-	const updatedBoard = {
-		$set: {
-			"userBoards.$.title": req.body.title,
-			"userBoards.$.board": req.body.board,
-		},
-	};
-	Board.updateOne(query, updatedBoard, function (err, res) {
-		if (err) throw err;
-		console.log("Board updated");
-		response.json(res);
-	});
-});
-
-//deletes specific board from user boards in database (updates board)
-router.route("/delete/:id").post(function (req, response) {
-	const boardID = req.params.id;
-	const query = { "userBoards._id": boardID };
-	const removeBoard = {
-		$pull: {
-			userBoards: {_id: boardID }
-		},
-	};
-	Board.updateOne(query, removeBoard, function (err, res) {
-		if (err) throw err;
-		console.log("Board removed");
-		response.json(res);
-	});
-});
 module.exports = router;

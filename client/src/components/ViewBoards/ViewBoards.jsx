@@ -2,70 +2,44 @@ import SideNavBar from "../SideNavBar/SideNavBar";
 import { useState, useEffect, useContext } from "react";
 import BoardDisplay from "./BoardDisplay";
 import { UserContext } from "../UserContext";
+import { SocketContext } from "../SocketContext";
 //import { useNavigate } from "react-router-dom";
 
 function ViewBoards(props) {
 	const [userBoards, setUserBoards] = useState([]);
 	const [createBoard, setCreateBoard] = useState(false);
-	const { user, setUser } = useContext(UserContext);
+	const { user } = useContext(UserContext);
+	const socket = useContext(SocketContext);
+	const userID = user._id;
 	//const navigate = useNavigate();
 
 	useEffect(() => {
-		const userID = user._id;
 		async function getUserBoards() {
-			const data = await fetch(`http://localhost:5000/user/get`, {
-				method: "GET",
-				credentials: "include",
-				withCredentials: true,
-				headers: {
-					"Content-Type": "application/json",
-				},
+			socket.emit("retreiveBoards", userID);
+			socket.on("sendBoards", (result) => {
+				const user = result;
+				setUserBoards(user.userBoards);
 			});
-			const userData = await data.json();
-			setUser(userData);
-
-			const response = await fetch(`http://localhost:5000/boards/${userID}`, {
-				method: "GET",
-			});
-
-			if (!response.ok) {
-				const message = `An error occurred: ${response.statusText}`;
-				window.alert(message);
-				return;
-			}
-
-			const user = await response.json();
-			setUserBoards(user.userBoards);
 		}
 		getUserBoards();
 
 		return;
-	}, [setUser, user._id, createBoard]);
+	}, [userID, createBoard, socket]);
 
-	async function createNewBoard(boardtitle) {
-		const userID = user._id;
+	function createNewBoard(boardtitle) {
 		const newBoard = {
 			title: boardtitle,
 			_id: userID,
 		};
-		console.log(newBoard);
-		await fetch(`http://localhost:5000/create/${userID}`, {
-			method: "POST",
-			body: JSON.stringify(newBoard),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		socket.emit("createBoard", newBoard);
 
 		setCreateBoard((prevBool) => {
 			return !prevBool;
 		});
 	}
 
-	async function deleteBoard(mongoID) {
-		await fetch(`http://localhost:5000/delete/${mongoID}`, {
-			method: "POST",
-		});
+	function deleteBoard(mongoID) {
+		socket.emit("deleteBoard", userID, mongoID);
 
 		setCreateBoard((prevBool) => {
 			return !prevBool;

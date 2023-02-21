@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
+const http = require("http").Server(app);
 require("dotenv").config();
 
 app.use(express.json());
@@ -47,9 +48,20 @@ passport.deserializeUser((_id, done) => {
 	});
 });
 
-
 const db = require("./db/mongoDB");
 app.use(require("./routes/userBoards"));
+
+//initialize web socket
+const io = require("socket.io")(http, {
+	cors: {
+		origin: "*",
+	},
+});
+
+const userBoards = require("./websocket/ws");
+userBoards.start(io);
+
+//main page
 
 app.get("/*", function (req, res) {
 	res.sendFile(path.join(__dirname, "/../build/index.html"), function (err) {
@@ -59,6 +71,6 @@ app.get("/*", function (req, res) {
 	});
 });
 
-app.listen(port, function () {
-	console.log(`Server started on port ${port}`);
+http.listen(port, () => {
+	console.log(`Server listening on ${port}`);
 });

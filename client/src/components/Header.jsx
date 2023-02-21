@@ -1,7 +1,7 @@
 import { Text, Button, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header(props) {
 	return (
 		<div className="header">
 			<div style={{ display: "flex", minWidth: "250px" }}>
@@ -13,10 +13,16 @@ function Header() {
 				</Link>
 			</div>
 			<div>
-				<Link to="/login">
-					<Button variant="headerAccountButton">Login</Button>
-				</Link>
-				<span style={{ padding: "10px" }}></span>
+				{props.isAuthenticated ? (
+					<></>
+				) : (
+					<>
+						<Link to="/login">
+							<Button variant="headerAccountButton">Login</Button>
+						</Link>
+						<span style={{ padding: "10px" }}></span>
+					</>
+				)}
 			</div>
 		</div>
 	);
