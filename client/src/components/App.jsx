@@ -15,7 +15,6 @@ function App() {
 	const navigate = useNavigate();
 	const socket = useContext(SocketContext);
 	const [isConnected, setIsConnected] = useState(socket.connected);
-	console.log(user);
 
 	useEffect(() => {
 		async function getUserBoards() {
@@ -28,8 +27,11 @@ function App() {
 				},
 			});
 			const userData = await data.json();
-			setUser(userData);
+			if (userData) {
+				setUser(userData);
+			}
 		}
+
 		getUserBoards();
 
 		socket.on("connect", () => {
@@ -45,7 +47,7 @@ function App() {
 			socket.off("disconnect");
 			socket.off("pong");
 		};
-	}, [isConnected, socket]);
+	}, [isConnected, socket, user._id]);
 
 	async function logout() {
 		navigate("/login");
@@ -67,7 +69,11 @@ function App() {
 							exact
 							path="/"
 							element={
-								user ? <ViewBoards logout={logout} /> : <Login type="login" />
+								user._id ? (
+									<ViewBoards logout={logout} />
+								) : (
+									<Login type="login" />
+								)
 							}
 						/>
 						<Route exact path="/login" element={<Login type="login" />} />

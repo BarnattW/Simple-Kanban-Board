@@ -52,15 +52,16 @@ function Board(props) {
 		function getBoard() {
 			const url = window.location.href;
 			const boardID = url.split("/");
-			console.log(userID, boardID[boardID.length - 1]);
 
 			socket.emit("getBoard", userID, boardID[boardID.length - 1]);
 
 			socket.on("sendBoard", (result) => {
 				const user = result;
-				setListContent(user.userBoards[0].board);
-				setBoardTitle(user.userBoards[0].title);
-				setMongoID(user.userBoards[0]._id);
+				if (user) {
+					setListContent(user.userBoards[0].board);
+					setBoardTitle(user.userBoards[0].title);
+					setMongoID(user.userBoards[0]._id);
+				}
 			});
 		}
 

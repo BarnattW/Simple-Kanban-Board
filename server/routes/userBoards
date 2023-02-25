@@ -10,6 +10,7 @@ router.route("/user/register").post(function (req, res) {
 		function (err, user) {
 			if (err) {
 				console.log(err);
+				res.json({ success: false });
 			} else {
 				console.log("User created");
 				passport.authenticate("local")(req, res, function () {
@@ -23,13 +24,14 @@ router.route("/user/register").post(function (req, res) {
 router.route("/user/login").post(function (req, res) {
 	passport.authenticate("local", function (err, user) {
 		if (err) {
-			console.log(err);
+			console.log("err");
 		}
 		req.login(user, function (err) {
 			if (err) {
 				console.log(err);
+				res.json({ success: false });
 			} else {
-				res.json(user);
+				res.json({ success: true });
 			}
 		});
 	})(req, res);
@@ -39,6 +41,7 @@ router.route("/user/logout").get(function (req, res) {
 	req.logout(req.user, function (err) {
 		if (err) {
 			console.log(err);
+			res.json({ success: false });
 		} else {
 			console.log("Logging User Out");
 			res.send({ success: true });
@@ -47,7 +50,11 @@ router.route("/user/logout").get(function (req, res) {
 });
 
 router.route("/user/get").get(function (req, res) {
-	res.json(req.user);
+	if (req.user) {
+		res.json(req.user);
+	} else {
+		res.json({});
+	}
 });
 
 module.exports = router;

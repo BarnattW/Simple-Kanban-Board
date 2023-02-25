@@ -21,6 +21,8 @@ const Heading = defineStyleConfig({
 			color: "#594545",
 			paddingBottom: "20px",
 		},
+		//404 page
+		errorHeading: { color: "#FFF8EA", paddingBottom: "5px" },
 	},
 
 	defaultProps: {

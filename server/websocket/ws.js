@@ -9,8 +9,8 @@ module.exports = {
 			});
 
 			//retreives all boards in user account from database
-			socket.on("retreiveBoards", (id) => {
-				const query = { _id: id };
+			socket.on("retreiveBoards", (userId) => {
+				const query = { _id: userId };
 				Board.findOne(query, function (err, result) {
 					if (err) {
 						console.log("Error with finding Boards");

@@ -4,8 +4,8 @@ import { useState } from "react";
 
 function CreateNewUI(props) {
 	const [textContent, setTextContent] = useState({
-		title: "",
-		content: "",
+		title: props.currentTitle,
+		content: props.currentContent,
 		id: Date.now(),
 	});
 

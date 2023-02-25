@@ -15,7 +15,7 @@ import {
 	FormErrorMessage,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
@@ -31,11 +31,14 @@ function Login(props) {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [isError, setIsError] = useState(false);
 	const [isErrorMatch, setIsErrorMatch] = useState(false);
+	const [authSuccess, setAuthSuccess] = useState();
+	const [registerSuccess, setRegisterSuccess] = useState();
 
-	const { user, setUser } = useContext(UserContext);
+	const { setUser } = useContext(UserContext);
 
 	function updateUsername(event) {
 		setUsername(event.target.value);
+		setRegisterSuccess();
 	}
 
 	function updatePassword(event) {
@@ -48,19 +51,13 @@ function Login(props) {
 		setIsErrorMatch(false);
 	}
 
-	useEffect(() => {
-		if (!user) {
-			navigate("/boards");
-		}
-	});
-
 	async function login(event) {
 		event.preventDefault();
 		const userLogin = {
 			username: username,
 			password: password,
 		};
-		await fetch(`http://localhost:5000/user/login`, {
+		const auth = await fetch(`http://localhost:5000/user/login`, {
 			method: "POST",
 			body: JSON.stringify(userLogin),
 			credentials: "include",
@@ -70,18 +67,24 @@ function Login(props) {
 				"Content-Type": "application/json",
 			},
 		});
-
-		const data = await fetch(`http://localhost:5000/user/get`, {
-			method: "GET",
-			credentials: "include",
-			withCredentials: true,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		const userData = await data.json();
-		setUser(userData);
-		navigate("/boards");
+		const authRes = await auth.json();
+		setAuthSuccess(authRes.success);
+		if (authRes.success) {
+			const data = await fetch(`http://localhost:5000/user/get`, {
+				method: "GET",
+				credentials: "include",
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			const userData = await data.json();
+			setUser(userData);
+			setIsError(false);
+			navigate("/boards");
+		} else {
+			setIsError(true);
+		}
 	}
 
 	async function signup(event) {
@@ -95,7 +98,7 @@ function Login(props) {
 				username: username,
 				password: password,
 			};
-			await fetch(`http://localhost:5000/user/register`, {
+			const register = await fetch(`http://localhost:5000/user/register`, {
 				method: "POST",
 				credentials: "include",
 				body: JSON.stringify(userSignup),
@@ -104,7 +107,15 @@ function Login(props) {
 					Accept: "application/json",
 					"Access-Control-Allow-Origin": "http://localhost:3000/",
 				},
-			}).then((res) => navigate("/boards"));
+			});
+			const registerRes = await register.json();
+			console.log(registerRes);
+			setRegisterSuccess(registerRes.success);
+			if (registerRes.success) {
+				login(event);
+				navigate("/boards");
+			} else {
+			}
 		}
 	}
 
@@ -156,7 +167,14 @@ function Login(props) {
 									></IconButton>
 								</InputRightElement>
 							</InputGroup>
-							{!isError && isLogin ? (
+							{authSuccess === false && isLogin ? (
+								<FormErrorMessage marginTop={0}>
+									Invalid password or email. Please try again.
+								</FormErrorMessage>
+							) : (
+								<></>
+							)}
+							{isLogin ? (
 								<></>
 							) : (
 								<FormErrorMessage marginTop={0}>
@@ -178,7 +196,7 @@ function Login(props) {
 									value={confirmPassword}
 									onChange={updateConfirmPassword}
 								/>
-								{!isErrorMatch && isLogin ? (
+								{isLogin ? (
 									<></>
 								) : (
 									<FormErrorMessage marginTop={0}>
@@ -190,6 +208,11 @@ function Login(props) {
 						<Button variant="userAuthButton" type="submit">
 							{isLogin ? "Login" : "Create"}
 						</Button>
+						{registerSuccess === false ? (
+							<div>Email already registered. Please try another email.</div>
+						) : (
+							<></>
+						)}
 					</form>
 				</CardBody>
 				<CardFooter>

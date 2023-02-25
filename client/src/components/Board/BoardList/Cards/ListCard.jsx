@@ -77,6 +77,8 @@ function ListCard(props) {
 						editing={editing}
 						toggle={toggleEditing}
 						type="list"
+						currentTitle={props.listTitle}
+						currentContent={props.listContent}
 					/>
 				) : (
 					<>
@@ -107,12 +109,7 @@ function ListCard(props) {
 				)}
 			</CardHeader>
 
-			<CardBody
-				padding="10px"
-				paddingBottom={0}
-				overflowY="auto"
-				maxHeight="60vh"
-			>
+			<CardBody padding="10px" paddingBottom={0} overflowY="auto">
 				{props.cards.map((cardContent, index) => {
 					return (
 						<CardContent
