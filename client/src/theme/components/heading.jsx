@@ -13,6 +13,7 @@ const Heading = defineStyleConfig({
 			color: "#FFF8EA",
 			marginLeft: "30px",
 			paddingTop: "1%",
+			_hover: { cursor: "pointer" },
 		},
 		//viewBoards
 		displayHeading: {

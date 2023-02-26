@@ -4,7 +4,7 @@ import BoardList from "./BoardList/BoardList";
 //renders lists
 function BoardCanvas(props) {
 	return (
-		<div className="boardList flex flex-row">
+		<div className="boardList flex flex-row overflow-y">
 			{props.listContent.map((listItem, index) => {
 				return (
 					<BoardList

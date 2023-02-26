@@ -89,7 +89,6 @@
 }
 
 .addList {
-    margin-top: 5px;
     padding-left: 15px;
 }
 
@@ -135,8 +134,9 @@ li {
 /* Board components */
 /* Accordion*/
 .cardTitle {
-    margin: 5px 0 0 5px;
+    cursor: pointer;
 	flex-grow: 1;
+    margin: 5px 0 0 5px;
 }
 
 /* Scrollbar */ 

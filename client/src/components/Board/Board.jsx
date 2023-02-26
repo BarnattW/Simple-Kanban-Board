@@ -27,6 +27,11 @@ function Board(props) {
 		});
 	}
 
+	//updates board title
+	function updateBoardTitle(updatedBoardTitle) {
+		setBoardTitle(updatedBoardTitle);
+	}
+
 	//updates lists array with card content from ListCard
 	function updateCards(updatedContent, index) {
 		const newList = [...listContent];
@@ -120,7 +125,10 @@ function Board(props) {
 		<div className="flex-grow flex-row overflow-y">
 			<SideNavBar logout={props.logout} />
 			<div className="canvas flex flex-column">
-				<BoardHeader boardTitle={boardTitle} />
+				<BoardHeader
+					boardTitle={boardTitle}
+					updateBoardTitle={updateBoardTitle}
+				/>
 				<DragDropContext onDragEnd={dragEnd}>
 					<BoardCanvas
 						addListContent={addListContent}
