@@ -1,3 +1,6 @@
+import AlertDialogues from "../../../AlertDialogues/AlertDialogues";
+import CardContent from "./CardContent";
+import CreateNewUI from "./CreateNewUI";
 import {
 	Card,
 	CardHeader,
@@ -8,10 +11,7 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import { AddIcon, EditIcon } from "@chakra-ui/icons";
-import CardContent from "./CardContent";
 import { useState } from "react";
-import CreateNewUI from "./CreateNewUI";
-import AlertDialogues from "../../../AlertDialogues/AlertDialogues";
 
 function ListCard(props) {
 	const [toggleBool, setToggleBool] = useState(true);
@@ -63,33 +63,24 @@ function ListCard(props) {
 	//renders card contents
 	return (
 		<Card
-			maxw="sm"
 			width="300px"
 			backgroundColor="#e3d6c5"
-			maxHeight="90vh"
-			display="flex"
-			flexDirection="column"
+			maxHeight="85vh"
 		>
 			<CardHeader padding={3} paddingBottom={0}>
 				{editing ? (
 					<CreateNewUI
-						updateContent={updateHeading}
+						currentTitle={props.listTitle}
+						currentContent={props.listContent}
 						editing={editing}
 						toggle={toggleEditing}
 						type="list"
-						currentTitle={props.listTitle}
-						currentContent={props.listContent}
+						updateContent={updateHeading}
 					/>
 				) : (
 					<>
 						<div className="flex">
-							<Heading
-								size="sm"
-								flexGrow={1}
-								lineHeight={1.5}
-								overflow="auto"
-								marginTop={2}
-							>
+							<Heading size="sm" variant="listCardHeading">
 								{props.listTitle}
 							</Heading>
 							<AlertDialogues
@@ -98,9 +89,8 @@ function ListCard(props) {
 								type="listIconButton"
 							/>
 							<IconButton
-								variant="listIconButton"
-								aria-label=""
 								icon={<EditIcon />}
+								variant="listIconButton"
 								onClick={toggleEditing}
 							></IconButton>
 						</div>
@@ -127,17 +117,16 @@ function ListCard(props) {
 
 			<CardFooter padding={3} paddingTop={5}>
 				<IconButton
-					variant="iconButton"
-					aria-label=""
-					icon={<AddIcon />}
-					onClick={toggleInputField}
 					display={toggleBool ? "block" : "none"}
+					icon={<AddIcon />}
+					variant="iconButton"
+					onClick={toggleInputField}
 				></IconButton>
 
 				<CreateNewUI
+					addContent={addCardContent}
 					toggleValue={toggleBool}
 					toggle={toggleInputField}
-					addContent={addCardContent}
 				/>
 			</CardFooter>
 		</Card>

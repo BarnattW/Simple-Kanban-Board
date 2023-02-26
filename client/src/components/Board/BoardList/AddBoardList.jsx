@@ -1,5 +1,5 @@
-import { Button } from "@chakra-ui/react";
 import CreateNewUI from "./Cards/CreateNewUI";
+import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 
 function AddBoardList(props) {
@@ -12,9 +12,9 @@ function AddBoardList(props) {
 	return (
 		<>
 			<CreateNewUI
-				toggleValue={toggleBool}
-				toggle={toggleInputField}
 				addContent={props.onAdd}
+				toggle={toggleInputField}
+				toggleValue={toggleBool}
 			/>
 			<Button
 				w="200px"

@@ -65,7 +65,7 @@ function CreateNewUI(props) {
 		<Fade in={!props.toggleValue}>
 			<div
 				style={{
-					backgroundColor: "#FFF8EA",
+					backgroundColor: "var(--card-bg-coffee)",
 					borderRadius: "20px",
 					display: `${!props.toggleValue ? "inline-block" : "none"}`,
 					minWidth: "250px",
@@ -73,35 +73,33 @@ function CreateNewUI(props) {
 				}}
 			>
 				<Textarea
+					borderBottomRadius={0}
 					name="title"
-					value={textContent.title}
-					onChange={updateContent}
 					placeholder="Title"
 					resize="none"
 					rows="1"
-					borderBottomRadius={0}
+					value={textContent.title}
+					onChange={updateContent}
 				/>
 				<Textarea
+					borderRadius={0}
 					name="content"
-					value={textContent.content}
-					onChange={updateContent}
+					overflow-wrap="break-word"
 					placeholder="Enter any additional notes or details"
 					resize="none"
-					borderRadius={0}
-					whiteSpace="pre-line"
-					overflow-wrap="break-word"
 					rows="2"
+					whiteSpace="pre-line"
+					value={textContent.content}
+					onChange={updateContent}
 				/>
 				<IconButton
-					backgroundColor="#FFF8EA"
+					backgroundColor="var(--card-bg-coffee)"
 					borderBottomRadius={10}
-					aria-label=""
 					icon={<AddIcon />}
 					onClick={addContent}
 				></IconButton>
 				<IconButton
-					backgroundColor="#FFF8EA"
-					aria-label=""
+					backgroundColor="var(--card-bg-coffee)"
 					icon={<CloseIcon />}
 					onClick={toggleEvent}
 				></IconButton>

@@ -12,14 +12,19 @@ const Heading = defineStyleConfig({
 		boardHeading: {
 			color: "#FFF8EA",
 			marginLeft: "30px",
-			paddingTop: "0.5%",
-			position: "relative",
-			display: "block",
+			paddingTop: "1%",
 		},
 		//viewBoards
 		displayHeading: {
 			color: "#594545",
 			paddingBottom: "20px",
+		},
+		//ListCard
+		listCardHeading: {
+			flexGrow: "1",
+			lineHeight: "1.5",
+			marginTop: "2",
+			overflow: "auto",
 		},
 		//404 page
 		errorHeading: { color: "#FFF8EA", paddingBottom: "5px" },

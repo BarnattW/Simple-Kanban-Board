@@ -1,5 +1,6 @@
 const Board = require("../model/user.js");
 
+//websocket 
 module.exports = {
 	start: function (io) {
 		io.on("connection", (socket) => {
@@ -56,7 +57,10 @@ module.exports = {
 					},
 				};
 				Board.updateOne(query, removeBoard, function (err, res) {
-					if (err) throw err;
+					if (err) {
+						console.log(err);
+						return;
+					}
 					console.log("Board removed");
 				});
 			});
@@ -87,7 +91,10 @@ module.exports = {
 					},
 				};
 				Board.updateOne(query, updatedBoard, function (err, res) {
-					if (err) throw err;
+					if (err) {
+						console.log(err);
+						return;
+					}
 					console.log("Board updated");
 				});
 			});

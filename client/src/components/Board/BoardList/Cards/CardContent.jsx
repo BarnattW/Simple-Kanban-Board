@@ -1,5 +1,5 @@
-import { Draggable } from "react-beautiful-dnd";
 import Accordion from "./Accordion/Accordion";
+import { Draggable } from "react-beautiful-dnd";
 
 function CardContent(props) {
 	//unique IDs to prevent edge case where uniqueIDs are the same for items with the same name

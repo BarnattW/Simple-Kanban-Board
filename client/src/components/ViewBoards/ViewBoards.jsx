@@ -1,18 +1,19 @@
-import SideNavBar from "../SideNavBar/SideNavBar";
-import { useState, useEffect, useContext } from "react";
 import BoardDisplay from "./BoardDisplay";
-import { UserContext } from "../UserContext";
+import SideNavBar from "../SideNavBar/SideNavBar";
 import { SocketContext } from "../SocketContext";
-//import { useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
+import { useContext, useEffect, useState } from "react";
 
 function ViewBoards(props) {
-	const [userBoards, setUserBoards] = useState([]);
-	const [createBoard, setCreateBoard] = useState(false);
 	const { user } = useContext(UserContext);
 	const socket = useContext(SocketContext);
 	const userID = user._id;
-	//const navigate = useNavigate();
 
+	const [userBoards, setUserBoards] = useState([]);
+	//createBoard is used to trigger useEffect when a new board is made
+	const [createBoard, setCreateBoard] = useState(false);
+
+	//retrieves user's board onload
 	useEffect(() => {
 		async function getUserBoards() {
 			socket.emit("retreiveBoards", userID);
@@ -24,12 +25,13 @@ function ViewBoards(props) {
 		getUserBoards();
 
 		return;
-	}, [userID, createBoard, socket]);
+	}, [createBoard, socket, userID]);
 
+	//creates a new board by sending a request to server
 	function createNewBoard(boardtitle) {
 		const newBoard = {
-			title: boardtitle,
 			_id: userID,
+			title: boardtitle,
 		};
 		socket.emit("createBoard", newBoard);
 
@@ -38,6 +40,7 @@ function ViewBoards(props) {
 		});
 	}
 
+	//deletes a board by sending a request to server
 	function deleteBoard(mongoID) {
 		socket.emit("deleteBoard", userID, mongoID);
 
@@ -47,19 +50,12 @@ function ViewBoards(props) {
 	}
 
 	return (
-		<div
-			style={{
-				display: "flex",
-				alignItems: "flex-start",
-				overflowY: "auto",
-				flexGrow: "1",
-			}}
-		>
+		<div className="flex overflow-y">
 			<SideNavBar logout={props.logout} />
 			<BoardDisplay
-				userBoards={userBoards}
 				createNewBoard={createNewBoard}
 				deleteBoard={deleteBoard}
+				userBoards={userBoards}
 			/>
 		</div>
 	);

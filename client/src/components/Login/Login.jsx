@@ -1,3 +1,4 @@
+import { UserContext } from "../UserContext";
 import {
 	Card,
 	CardHeader,
@@ -15,13 +16,16 @@ import {
 	FormErrorMessage,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
-import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
+import { useContext, useState } from "react";
 
 function Login(props) {
-	const isLogin = props.type === "login" ? true : false;
 	const navigate = useNavigate();
+
+	//used to toggle elements in login and register
+	const isLogin = props.type === "login" ? true : false;
+
+	//toggles between hidden and text password
 	const [show, setShow] = useState(false);
 	const handleClick = () => setShow(!show);
 
@@ -29,6 +33,8 @@ function Login(props) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+
+	//toggles form errors
 	const [isError, setIsError] = useState(false);
 	const [isErrorMatch, setIsErrorMatch] = useState(false);
 	const [authSuccess, setAuthSuccess] = useState();
@@ -36,6 +42,7 @@ function Login(props) {
 
 	const { setUser } = useContext(UserContext);
 
+	//updates user inputted username and passwords
 	function updateUsername(event) {
 		setUsername(event.target.value);
 		setRegisterSuccess();
@@ -51,8 +58,10 @@ function Login(props) {
 		setIsErrorMatch(false);
 	}
 
+	//logins user by sending a request to server
 	async function login(event) {
 		event.preventDefault();
+
 		const userLogin = {
 			username: username,
 			password: password,
@@ -69,6 +78,8 @@ function Login(props) {
 		});
 		const authRes = await auth.json();
 		setAuthSuccess(authRes.success);
+
+		//if auth is successful, fetch user data
 		if (authRes.success) {
 			const data = await fetch(`http://localhost:5000/user/get`, {
 				method: "GET",
@@ -87,8 +98,11 @@ function Login(props) {
 		}
 	}
 
+	//registers new user by sending a request to server
 	async function signup(event) {
 		event.preventDefault();
+
+		//guard clauses
 		if (password.length <= 8) {
 			setIsError(true);
 		} else if (confirmPassword !== password) {
@@ -109,46 +123,46 @@ function Login(props) {
 				},
 			});
 			const registerRes = await register.json();
-			console.log(registerRes);
 			setRegisterSuccess(registerRes.success);
+
 			if (registerRes.success) {
+				//on sucessful register, logs user in
 				login(event);
 				navigate("/boards");
-			} else {
 			}
 		}
 	}
 
 	return (
-		<div style={{ display: "flex", flexDirection: "row", height: "100%" }}>
+		<div className="flex-row height-max">
 			<Image
 				src="svg/low-poly-grid-haikei.svg"
 				flex="1 1 50%"
 				objectFit="cover"
-				height="100%"
 				overflow="hidden"
 			></Image>
+
 			<Card
 				backgroundColor="#FFF8EA"
-				color="#815B5B"
 				borderRadius={0}
+				color="#815B5B"
 				flex="1 1 50%"
-				height="100%"
-				paddingLeft="20px"
-				paddingRight="20px"
 				minW="300px"
+				padding="0 20px 0 20px"
 			>
 				<CardHeader>
 					<Heading>
 						{isLogin ? "Login to Simple Kanban" : "Create An Account"}
 					</Heading>
 				</CardHeader>
+
 				<CardBody>
 					<form onSubmit={isLogin ? login : signup}>
 						<FormControl isRequired marginBottom="24px">
 							<FormLabel requiredIndicator>Email</FormLabel>
 							<Input type="email" value={username} onChange={updateUsername} />
 						</FormControl>
+
 						<FormControl isRequired isInvalid={isError} marginBottom="24px">
 							<FormLabel requiredIndicator>
 								{isLogin ? "Password" : "Password (min. 8 characters)"}
@@ -182,6 +196,7 @@ function Login(props) {
 								</FormErrorMessage>
 							)}
 						</FormControl>
+
 						{isLogin ? (
 							<> </>
 						) : (
@@ -196,18 +211,16 @@ function Login(props) {
 									value={confirmPassword}
 									onChange={updateConfirmPassword}
 								/>
-								{isLogin ? (
-									<></>
-								) : (
-									<FormErrorMessage marginTop={0}>
-										Password do not match. Please try again.
-									</FormErrorMessage>
-								)}
+
+								<FormErrorMessage marginTop={0}>
+									Password do not match. Please try again.
+								</FormErrorMessage>
 							</FormControl>
 						)}
 						<Button variant="userAuthButton" type="submit">
 							{isLogin ? "Login" : "Create"}
 						</Button>
+
 						{registerSuccess === false ? (
 							<div>Email already registered. Please try another email.</div>
 						) : (
@@ -215,6 +228,7 @@ function Login(props) {
 						)}
 					</form>
 				</CardBody>
+
 				<CardFooter>
 					<p>
 						{isLogin ? "Don't have an account? " : "Already have an account? "}

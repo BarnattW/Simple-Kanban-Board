@@ -62,7 +62,6 @@ const userBoards = require("./websocket/ws");
 userBoards.start(io);
 
 //main page
-
 app.get("/*", function (req, res) {
 	res.sendFile(path.join(__dirname, "/../build/index.html"), function (err) {
 		if (err) {

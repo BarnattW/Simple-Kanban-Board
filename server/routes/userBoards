@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const Board = require("../model/user.js");
 
+//register new users
 router.route("/user/register").post(function (req, res) {
 	Board.register(
 		{ username: req.body.username, userBoards: [] },
@@ -21,11 +22,9 @@ router.route("/user/register").post(function (req, res) {
 	);
 });
 
+//login user
 router.route("/user/login").post(function (req, res) {
 	passport.authenticate("local", function (err, user) {
-		if (err) {
-			console.log("err");
-		}
 		req.login(user, function (err) {
 			if (err) {
 				console.log(err);
@@ -37,6 +36,7 @@ router.route("/user/login").post(function (req, res) {
 	})(req, res);
 });
 
+//logout user
 router.route("/user/logout").get(function (req, res) {
 	req.logout(req.user, function (err) {
 		if (err) {
@@ -49,6 +49,7 @@ router.route("/user/logout").get(function (req, res) {
 	});
 });
 
+//retreives user information from session
 router.route("/user/get").get(function (req, res) {
 	if (req.user) {
 		res.json(req.user);

@@ -1,14 +1,14 @@
+import { UserContext } from "./UserContext";
 import { Text, Button, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { UserContext } from "./UserContext";
 import { useContext } from "react";
 
 function Header() {
 	const { user } = useContext(UserContext);
 
 	return (
-		<div className="header">
-			<div style={{ display: "flex", minWidth: "250px" }}>
+		<div className="border-coffee flex-row sticky header padding-ten">
+			<div className="flex">
 				<Image src="/svg/logo.svg" boxSize={9}></Image>
 				<Link to={user._id ? "/boards" : "/login"}>
 					<Text fontSize="2xl" color="var(--list-bg-coffee)">
@@ -24,7 +24,7 @@ function Header() {
 						<Link to="/login">
 							<Button variant="headerAccountButton">Login</Button>
 						</Link>
-						<span style={{ padding: "10px" }}></span>
+						<span className="padding-ten"></span>
 					</>
 				)}
 			</div>

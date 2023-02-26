@@ -1,19 +1,20 @@
-import BoardHeader from "./BoardHeader";
 import BoardCanvas from "./BoardCanvas";
-import { DragDropContext } from "react-beautiful-dnd";
-import { useState, useEffect, useContext } from "react";
+import BoardHeader from "./BoardHeader";
 import SideNavBar from "../SideNavBar/SideNavBar";
-import { UserContext } from "../UserContext";
 import { SocketContext } from "../SocketContext";
+import { UserContext } from "../UserContext";
+import { DragDropContext } from "react-beautiful-dnd";
+import { useContext, useEffect, useState } from "react";
 
 function Board(props) {
-	//stores an array that renders the lists and cards
-	const [listContent, setListContent] = useState([]);
-	const [boardTitle, setBoardTitle] = useState([]);
-	const [mongoID, setMongoID] = useState("");
 	const { user } = useContext(UserContext);
 	const socket = useContext(SocketContext);
 	const userID = user._id;
+	const [mongoID, setMongoID] = useState("");
+
+	//stores an array that renders the lists and cards
+	const [listContent, setListContent] = useState([]);
+	const [boardTitle, setBoardTitle] = useState([]);
 
 	//adds new list to array and receives content from CreateNewUI
 	function addListContent(newContent) {
@@ -48,13 +49,13 @@ function Board(props) {
 		setListContent(newList);
 	}
 
+	//initially retrieves board data, then updates it
 	useEffect(() => {
 		function getBoard() {
 			const url = window.location.href;
 			const boardID = url.split("/");
 
 			socket.emit("getBoard", userID, boardID[boardID.length - 1]);
-
 			socket.on("sendBoard", (result) => {
 				const user = result;
 				if (user) {
@@ -116,23 +117,21 @@ function Board(props) {
 	}
 
 	return (
-		<>
-			<div style={{ display: "flex", flexDirection: "row", flexGrow: "1" }}>
-				<SideNavBar logout={props.logout} />
-				<div className="canvas">
-					<BoardHeader boardTitle={boardTitle} />
-					<DragDropContext onDragEnd={dragEnd}>
-						<BoardCanvas
-							listContent={listContent}
-							addListContent={addListContent}
-							updateCards={updateCards}
-							updateLists={updateLists}
-							deleteLists={deleteLists}
-						/>
-					</DragDropContext>
-				</div>
+		<div className="flex-grow flex-row overflow-y">
+			<SideNavBar logout={props.logout} />
+			<div className="canvas flex flex-column">
+				<BoardHeader boardTitle={boardTitle} />
+				<DragDropContext onDragEnd={dragEnd}>
+					<BoardCanvas
+						addListContent={addListContent}
+						deleteLists={deleteLists}
+						listContent={listContent}
+						updateCards={updateCards}
+						updateLists={updateLists}
+					/>
+				</DragDropContext>
 			</div>
-		</>
+		</div>
 	);
 }
 

@@ -5,10 +5,13 @@
     --card-bg-coffee:#FFF8EA;
 }
 
+.card-main-coffee {
+    background-color: var(--header-bg-coffee);
+	color: var(--main-bg-coffee)
+}
+
 .app {
     height: 100vh;
-	display: flex;
-    flex-direction: column;
 }
 
 .hidden {
@@ -17,46 +20,72 @@
 
 .flex {
     display: flex;
+    flex-grow: 1;
+}
+.flex-grow {
+    flex-grow: 1;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
     overflow: auto;
 }
 
-/* Page Header */
-.header {
-    padding:10px; 
-    background-color:var(--header-bg-coffee);
-    border-width: 0 0 1px 0;
-    border-color: var(--main-bg-coffee);
+.overflow-y {
+    overflow-y: auto;
+}
+
+.padding-ten {
+    padding: 10px;
+}
+
+.padding-thirty {
+    padding: 30px;
+}
+
+.sticky {
     position: sticky;
     top: 0;
-    z-index: 1;
-    display: flex;
-    flex-direction: row;
+}
+
+.center {
+    height: 50%; 
+    margin: auto; 
+    text-align: center; 
+}
+
+.border-coffee {
+    border-width: 0 0 1px 0;
+    border-color: var(--main-bg-coffee);
+}
+
+.height-max {
+    height: 100%
+}
+
+/* Page Header */
+.header { 
+    background-color:var(--header-bg-coffee);
     justify-content: space-between;
 }
 
 /* Board Component */
 .canvas { 
     background-color: var(--main-bg-coffee);
-    overflow: auto;
-    flex-direction: column;
-    display: flex;
-    flex-grow: 1;
 }
 
 .boardList {
     background-color: var(--main-bg-coffee);
-    overflow: auto;
-    flex-direction: row;
-    display: flex;
-    flex-grow: 1;
     margin-top: 10px;
 }
 
 .list {
     margin-left: 10px;
-    max-height: 100%;
     display: inline-block;
-    height: 100%;
 }
 
 .addList {
@@ -72,33 +101,27 @@
 }
 
 /* Navbar */
+li {
+    cursor: pointer;
+}
 
 .nav-menu {
     background-color: var(--header-bg-coffee);
-    position: sticky;
-    top: 0; 
-    height:100%;
 }
 
 .nav-menu.active {
-    width: 150px;
-    min-width: 150px;
+    width: 125px;
+    min-width: 125px;
 }
 
 
 /* viewBoards components */
 .userBoardsContainer {
-    padding: 30px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
     min-width: 500px;
 }
 .userBoardsDisplay {
     background-color: #e3d6c5; 
     border-radius: 8px;
-    padding:30px;
-    padding-bottom: 0;
 }
 
 .grid {
@@ -107,6 +130,13 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: 20px;
     padding: 16px 16px 24px 16px;
+}
+
+/* Board components */
+/* Accordion*/
+.cardTitle {
+    margin: 5px 0 0 5px;
+	flex-grow: 1;
 }
 
 /* Scrollbar */ 

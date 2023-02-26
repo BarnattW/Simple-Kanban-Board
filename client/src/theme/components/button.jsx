@@ -16,11 +16,11 @@ const Button = defineStyleConfig({
 		},
 		//Board Component: lists and cards
 		iconButton: {
-			margin: "auto",
 			borderRadius: "50px",
 			bg: "#815B5B",
 			color: "#e3d6c5",
 			_hover: { backgroundColor: "#594545", color: "#FFF8EA" },
+			margin: "auto",
 		},
 		cardIconButton: {
 			color: "#815B5B",
@@ -59,6 +59,7 @@ const Button = defineStyleConfig({
 			bg: "red.500",
 			color: "#FFF8EA",
 			_hover: { backgroundColor: "red.600", color: "#FFF8EA" },
+			ml: "3",
 		},
 		//Header links
 		headerAccountButton: {

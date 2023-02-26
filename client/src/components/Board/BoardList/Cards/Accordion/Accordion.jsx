@@ -13,6 +13,7 @@ function Accordion(props) {
 		});
 	}
 
+	//passes index to CardContent to delete a card
 	function deleteContent() {
 		props.deleteCardContent(props.index);
 	}
@@ -34,42 +35,32 @@ function Accordion(props) {
 		<div>
 			{editing ? (
 				<CreateNewUI
-					updateContent={editCards}
+					currentTitle={props.cardTitle}
+					currentContent={props.cardContent}
 					editing={editing}
 					toggle={toggleEditing}
 					type="card"
-					currentTitle={props.cardTitle}
-					currentContent={props.cardContent}
+					updateContent={editCards}
 				/>
 			) : (
 				<div className="cardContent">
 					<div className="flex">
-						<label
-							style={{
-								marginLeft: "5px",
-								flexGrow: 1,
-								marginTop: "5px",
-								overflow: "auto",
-							}}
-						>
+						<label className="cardTitle" style={{ overflow: "auto" }}>
 							{props.cardTitle}
 						</label>
 						<IconButton
-							variant="cardIconButton"
-							aria-label=""
 							icon={<EditIcon boxSize={4} />}
+							variant="cardIconButton"
 							onClick={toggleEditing}
 						></IconButton>
 						<IconButton
-							variant="cardIconButton"
-							aria-label=""
 							icon={<DeleteIcon boxSize={4} />}
+							variant="cardIconButton"
 							onClick={deleteContent}
 						></IconButton>
 						<IconButton
-							variant="cardIconButton"
-							aria-label=""
 							icon={<TriangleDownIcon boxSize={4} />}
+							variant="cardIconButton"
 							onClick={showContent}
 						></IconButton>
 					</div>

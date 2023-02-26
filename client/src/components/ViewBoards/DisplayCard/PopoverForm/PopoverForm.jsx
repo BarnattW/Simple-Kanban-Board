@@ -17,47 +17,55 @@ import { AddIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
 function PopoverForm(props) {
-	const [boardTitle, setBoardTitle] = useState("");
 	const [togglePopover, setTogglePopover] = useBoolean();
 
+	const [boardTitle, setBoardTitle] = useState("");
+
+	//pass boardTitle to boardDisplay to create a new board
 	function createNewBoard(event) {
 		event.preventDefault();
+
 		props.createNewBoard(boardTitle);
 		setBoardTitle("");
 	}
 
+	//update boardTitle
 	function updateInput(event) {
 		setBoardTitle(event.target.value);
 	}
 
 	return (
 		<Popover
-			placement="right"
 			isOpen={togglePopover}
 			onOpen={setTogglePopover.on}
 			onClose={setTogglePopover.off}
+			placement="right"
 		>
 			<PopoverTrigger>
 				<IconButton
-					variant="boardDisplayIconButton"
 					icon={<AddIcon />}
+					variant="boardDisplayIconButton"
 				></IconButton>
 			</PopoverTrigger>
-			<PopoverContent bg="#FFF8EA" border="0">
+			<PopoverContent bg="var(--card-bg-coffee)">
 				<PopoverArrow />
-				<PopoverHeader fontWeight="bold" textAlign="center" color="#815B5B">
+				<PopoverHeader
+					color="var(--main-bg-coffee)"
+					fontWeight="bold"
+					textAlign="center"
+				>
 					Create New Board
 				</PopoverHeader>
 				<PopoverCloseButton />
 				<PopoverBody>
 					<form onSubmit={createNewBoard}>
 						<FormControl>
-							<FormLabel color="#815B5B">Board Title</FormLabel>
+							<FormLabel color="var(--main-bg-coffee)">Board Title</FormLabel>
 							<Input value={boardTitle} onChange={updateInput} />
 						</FormControl>
 						<Button
-							variant="createBoardButton"
 							type="submit"
+							variant="createBoardButton"
 							onClick={setTogglePopover.off}
 						>
 							Create
