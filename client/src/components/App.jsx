@@ -21,7 +21,7 @@ function App() {
 	//fetch user data is session exists and initialize socket connection
 	useEffect(() => {
 		async function getUserBoards() {
-			const data = await fetch(`/user/get`, {
+			const data = await fetch(`https://simple-kanban.onrender.com/user/get`, {
 				method: "GET",
 				credentials: "include",
 				withCredentials: true,
