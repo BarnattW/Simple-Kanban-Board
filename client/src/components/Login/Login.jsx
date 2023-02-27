@@ -81,14 +81,17 @@ function Login(props) {
 
 		//if auth is successful, fetch user data
 		if (authRes.success) {
-			const data = await fetch(`https://simple-kanban.onrender.com/user/get`, {
-				method: "GET",
-				credentials: "include",
-				withCredentials: true,
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
+			const data = await fetch(
+				`https://stingray-app-aqjaz.ondigitalocean.app/user/get`,
+				{
+					method: "GET",
+					credentials: "include",
+					withCredentials: true,
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
 			const userData = await data.json();
 			setUser(userData);
 			setIsError(false);
@@ -113,7 +116,7 @@ function Login(props) {
 				password: password,
 			};
 			const register = await fetch(
-				`https://simple-kanban.onrender.com/user/register`,
+				`https://stingray-app-aqjaz.ondigitalocean.app/user/register`,
 				{
 					method: "POST",
 					credentials: "include",
