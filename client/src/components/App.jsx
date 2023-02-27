@@ -24,11 +24,14 @@ function App() {
 			const data = await fetch(`https://simple-kanban.onrender.com/user/get`, {
 				method: "GET",
 				credentials: "include",
+				withCredentials: true,
 				headers: {
 					"Content-Type": "application/json",
 				},
 			});
+
 			const userData = await data.json();
+
 			if (userData) {
 				setUser(userData);
 			}

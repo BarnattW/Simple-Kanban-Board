@@ -30,6 +30,7 @@ router.route("/user/login").post(function (req, res) {
 				console.log(err);
 				res.json({ success: false });
 			} else {
+				console.log("user logged in");
 				res.json({ success: true });
 			}
 		});
@@ -51,6 +52,7 @@ router.route("/user/logout").get(function (req, res) {
 
 //retreives user information from session
 router.route("/user/get").get(function (req, res) {
+	console.log(req.user);
 	if (req.user) {
 		res.json(req.user);
 	} else {

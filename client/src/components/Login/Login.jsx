@@ -66,7 +66,7 @@ function Login(props) {
 			username: username,
 			password: password,
 		};
-		const auth = await fetch(`https://simple-kanban.onrender.com/user/login`, {
+		const auth = await fetch(`http://localhost:5000/user/login`, {
 			method: "POST",
 			body: JSON.stringify(userLogin),
 			credentials: "include",

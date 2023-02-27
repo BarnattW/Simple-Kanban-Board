@@ -4,7 +4,7 @@ const port = process.env.PORT || 5000;
 const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
-const MemoryStore = require("memorystore")(session);
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const http = require("http").Server(app);
 require("dotenv").config();
@@ -32,12 +32,12 @@ app.use(
 	})
 );
 
-//initialize user authentication, now with session store 
+//initialize user authentication, now with session store
 app.use(
 	session({
-		cookie: { maxAge: 86400000 },
-		store: new MemoryStore({
-			checkPeriod: 86400000, // prune expired entries every 24h
+		cookie: { maxAge: 60000 },
+		store: MongoStore.create({
+			mongoUrl: process.env.ATLAS_URI,
 		}),
 		resave: false,
 		secret: "keyboard cat",
@@ -71,7 +71,7 @@ app.use(require("./routes/userBoards"));
 //initialize web socket
 const io = require("socket.io")(http, {
 	secure: true,
-	port: process.env.PORT,
+	port: port,
 	cors: {
 		origin: "*",
 		credentials: true,
