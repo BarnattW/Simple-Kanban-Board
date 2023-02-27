@@ -21,7 +21,7 @@ function App() {
 	//fetch user data is session exists and initialize socket connection
 	useEffect(() => {
 		async function getUserBoards() {
-			const data = await fetch(`http://localhost:5000/user/get`, {
+			const data = await fetch(`https://simple-kanban.onrender.com/user/get`, {
 				method: "GET",
 				credentials: "include",
 				headers: {
@@ -50,7 +50,7 @@ function App() {
 	//logout user and resets user context
 	async function logout() {
 		navigate("/login");
-		await fetch(`http://localhost:5000/user/logout`, {
+		await fetch(`https://simple-kanban.onrender.com/user/logout`, {
 			method: "GET",
 			credentials: "include",
 		});
