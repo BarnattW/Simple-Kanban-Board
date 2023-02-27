@@ -34,9 +34,9 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"client": "npm run build --prefix client",
-		"server": "nodemon server/server.js",
+		"server": "nodemon server.js",
 		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-		"start": "node server/server.js"
+		"start": "node server.js"
 	},
 	"eslintConfig": {
 		"extends": [
