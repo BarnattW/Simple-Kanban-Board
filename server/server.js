@@ -71,7 +71,7 @@ app.use(require("./routes/userBoards"));
 //initialize web socket
 const io = require("socket.io")(http, {
 	secure: true,
-	port: "443",
+	port: "10000",
 	cors: {
 		origin: "*",
 		credentials: true,
