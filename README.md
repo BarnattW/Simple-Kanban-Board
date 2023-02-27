@@ -8,7 +8,7 @@ Please do not put sensitive information inside the application, passwords are ha
 test accounts for application: \
   a@gmail.com 123456789 \
   b@gmail.com 123456789 \
-https://simplekanbanboardio.netlify.app/ \
+https://simplekanbanboardio.netlify.app/ 
 
 
 Timeline: \
