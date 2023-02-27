@@ -4,7 +4,7 @@ const port = process.env.PORT || 5000;
 const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
-const MongoDBStore = require("connect-mongodb-session")(session);
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const http = require("http").Server(app);
 require("dotenv").config();
@@ -35,11 +35,9 @@ app.use(
 //initialize user authentication, now with session store
 app.use(
 	session({
-		name: "SimpleKanbanCookie",
-		cookie: { httpOnly: true, secure: true, maxAge: 60000, sameSite: "none" },
-		store: new MongoDBStore({
-			uri: process.env.ATLAS_URI,
-			collection: "sessions",
+		cookie: { httpOnly: true, maxAge: 60000 },
+		store: MongoStore.create({
+			mongoUrl: process.env.ATLAS_URI,
 		}),
 		resave: false,
 		secret: "keyboard cat",

@@ -66,7 +66,7 @@ function Login(props) {
 			username: username,
 			password: password,
 		};
-		const auth = await fetch(`https://simple-kanban.onrender.com/user/login`, {
+		const auth = await fetch(`http://localhost:5000/user/login`, {
 			method: "POST",
 			body: JSON.stringify(userLogin),
 			credentials: "include",
@@ -81,7 +81,7 @@ function Login(props) {
 
 		//if auth is successful, fetch user data
 		if (authRes.success) {
-			const data = await fetch(`https://simple-kanban.onrender.com/user/get`, {
+			const data = await fetch(`http://localhost:5000/user/get`, {
 				method: "GET",
 				credentials: "include",
 				withCredentials: true,
@@ -112,20 +112,17 @@ function Login(props) {
 				username: username,
 				password: password,
 			};
-			const register = await fetch(
-				`https://simple-kanban.onrender.com/register`,
-				{
-					method: "POST",
-					credentials: "include",
-					withCredentials: true,
-					body: JSON.stringify(userSignup),
-					headers: {
-						"Content-Type": "application/json",
-						Accept: "application/json",
-						"Access-Control-Allow-Origin": "http://localhost:3000/",
-					},
-				}
-			);
+			const register = await fetch(`http://localhost:5000/register`, {
+				method: "POST",
+				credentials: "include",
+				withCredentials: true,
+				body: JSON.stringify(userSignup),
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+					"Access-Control-Allow-Origin": "http://localhost:3000/",
+				},
+			});
 			const registerRes = await register.json();
 			setRegisterSuccess(registerRes.success);
 
