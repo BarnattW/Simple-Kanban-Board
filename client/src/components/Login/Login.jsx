@@ -66,16 +66,19 @@ function Login(props) {
 			username: username,
 			password: password,
 		};
-		const auth = await fetch(`http://localhost:5000/user/login`, {
-			method: "POST",
-			body: JSON.stringify(userLogin),
-			credentials: "include",
-			withCredentials: true,
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-		});
+		const auth = await fetch(
+			`https://simple-kanban-379104.uc.r.appspot.com/user/login`,
+			{
+				method: "POST",
+				body: JSON.stringify(userLogin),
+				credentials: "include",
+				withCredentials: true,
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+			}
+		);
 		const authRes = await auth.json();
 		setAuthSuccess(authRes.success);
 
