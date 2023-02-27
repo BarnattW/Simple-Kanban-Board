@@ -30,13 +30,12 @@
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"build": "npm run client",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"client": "npm run build --prefix client",
 		"server": "nodemon server.js",
 		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-		"start": "node server.js"
+		"start": "nodemon server.js"
 	},
 	"eslintConfig": {
 		"extends": [
