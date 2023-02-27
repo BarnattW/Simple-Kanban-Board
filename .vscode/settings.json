@@ -1,0 +1,4 @@
+{
+	"appService.defaultWebAppToDeploy": "/subscriptions/690ac29e-c7d3-4d6f-9d1e-9d50267bb85f/resourceGroups/simpleKanban/providers/Microsoft.Web/sites/simpleKanban",
+	"appService.deploySubpath": "server"
+}
