@@ -56,6 +56,7 @@ function App() {
 		await fetch(`https://simple-kanban.onrender.com/user/logout`, {
 			method: "GET",
 			credentials: "include",
+			withCredentials: true,
 		});
 		setUser({});
 	}

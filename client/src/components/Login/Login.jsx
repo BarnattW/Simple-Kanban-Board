@@ -117,6 +117,7 @@ function Login(props) {
 				{
 					method: "POST",
 					credentials: "include",
+					withCredentials: true,
 					body: JSON.stringify(userSignup),
 					headers: {
 						"Content-Type": "application/json",
