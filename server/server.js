@@ -41,6 +41,7 @@ app.use(
 		}),
 		resave: false,
 		secret: "keyboard cat",
+		saveUninitialized: true,
 	})
 );
 
