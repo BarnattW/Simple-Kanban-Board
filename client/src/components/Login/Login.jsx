@@ -82,7 +82,7 @@ function Login(props) {
 		//if auth is successful, fetch user data
 		if (authRes.success) {
 			const data = await fetch(
-				`https://stingray-app-aqjaz.ondigitalocean.app/user/get`,
+				`https://simple-kanban-379104.uc.r.appspot.com/user/get`,
 				{
 					method: "GET",
 					credentials: "include",

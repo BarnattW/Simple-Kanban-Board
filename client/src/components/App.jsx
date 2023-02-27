@@ -22,7 +22,7 @@ function App() {
 	useEffect(() => {
 		async function getUserBoards() {
 			const data = await fetch(
-				`https://stingray-app-aqjaz.ondigitalocean.app/user/get`,
+				`https://simple-kanban-379104.uc.r.appspot.com/user/get`,
 				{
 					method: "GET",
 					credentials: "include",
@@ -56,7 +56,7 @@ function App() {
 	//logout user and resets user context
 	async function logout() {
 		navigate("/login");
-		await fetch(`https://stingray-app-aqjaz.ondigitalocean.app/user/logout`, {
+		await fetch(`https://simple-kanban-379104.uc.r.appspot.com/user/logout`, {
 			method: "GET",
 			credentials: "include",
 		});
