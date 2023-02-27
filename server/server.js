@@ -69,7 +69,7 @@ const db = require("./db/mongoDB");
 app.use(require("./routes/userBoards"));
 
 //initialize web socket
-const io = require("socket.io")("https://simple-kanban.onrender.com", {
+const io = require("socket.io")(http, {
 	secure: true,
 	port: "443",
 	cors: {
