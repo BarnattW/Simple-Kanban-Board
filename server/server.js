@@ -36,7 +36,7 @@ app.use(
 app.use(
 	session({
 		name: "SimpleKanbanCookie",
-		cookie: { httpOnly: true, maxAge: 60000, sameSite: "none" },
+		cookie: { httpOnly: false, maxAge: 60000, sameSite: "none" },
 		store: MongoStore.create({
 			mongoUrl: process.env.ATLAS_URI,
 		}),
