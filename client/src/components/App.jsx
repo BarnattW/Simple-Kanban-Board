@@ -21,17 +21,14 @@ function App() {
 	//fetch user data is session exists and initialize socket connection
 	useEffect(() => {
 		async function getUserBoards() {
-			const data = await fetch(
-				`https://simple-kanban-379104.uc.r.appspot.com/user/get`,
-				{
-					method: "GET",
-					credentials: "include",
-					withCredentials: true,
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			);
+			const data = await fetch(`/user/get`, {
+				method: "GET",
+				credentials: "include",
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 
 			const userData = await data.json();
 
@@ -56,7 +53,7 @@ function App() {
 	//logout user and resets user context
 	async function logout() {
 		navigate("/login");
-		await fetch(`https://simple-kanban-379104.uc.r.appspot.com/user/logout`, {
+		await fetch(`https://simple-kanban.onrender.com/user/logout`, {
 			method: "GET",
 			credentials: "include",
 		});

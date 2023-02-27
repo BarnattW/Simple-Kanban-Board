@@ -66,35 +66,29 @@ function Login(props) {
 			username: username,
 			password: password,
 		};
-		const auth = await fetch(
-			`https://simple-kanban-379104.uc.r.appspot.com/user/login`,
-			{
-				method: "POST",
-				body: JSON.stringify(userLogin),
-				credentials: "include",
-				withCredentials: true,
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-			}
-		);
+		const auth = await fetch(`https://simple-kanban.onrender.com/user/login`, {
+			method: "POST",
+			body: JSON.stringify(userLogin),
+			credentials: "include",
+			withCredentials: true,
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+		});
 		const authRes = await auth.json();
 		setAuthSuccess(authRes.success);
 
 		//if auth is successful, fetch user data
 		if (authRes.success) {
-			const data = await fetch(
-				`https://simple-kanban-379104.uc.r.appspot.com/user/get`,
-				{
-					method: "GET",
-					credentials: "include",
-					withCredentials: true,
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			);
+			const data = await fetch(`https://simple-kanban.onrender.com/user/get`, {
+				method: "GET",
+				credentials: "include",
+				withCredentials: true,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 			const userData = await data.json();
 			setUser(userData);
 			setIsError(false);
@@ -119,7 +113,7 @@ function Login(props) {
 				password: password,
 			};
 			const register = await fetch(
-				`https://stingray-app-aqjaz.ondigitalocean.app/user/register`,
+				`https://simple-kanban.onrender.com/register`,
 				{
 					method: "POST",
 					credentials: "include",
