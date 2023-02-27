@@ -4,6 +4,7 @@ const port = process.env.PORT || 5000;
 const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
 const passport = require("passport");
 const http = require("http").Server(app);
 require("dotenv").config();
@@ -31,12 +32,15 @@ app.use(
 	})
 );
 
-//initialize user authentication
+//initialize user authentication, now with session store 
 app.use(
 	session({
-		secret: "test secret",
+		cookie: { maxAge: 86400000 },
+		store: new MemoryStore({
+			checkPeriod: 86400000, // prune expired entries every 24h
+		}),
 		resave: false,
-		saveUninitialized: false,
+		secret: "keyboard cat",
 	})
 );
 
