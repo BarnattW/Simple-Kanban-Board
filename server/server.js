@@ -35,7 +35,8 @@ app.use(
 //initialize user authentication, now with session store
 app.use(
 	session({
-		cookie: { maxAge: 60000 },
+		name: "SimpleKanbanCookie",
+		cookie: { httpOnly: true, maxAge: 60000, sameSite: "none" },
 		store: MongoStore.create({
 			mongoUrl: process.env.ATLAS_URI,
 		}),
