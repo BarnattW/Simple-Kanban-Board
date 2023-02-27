@@ -67,9 +67,10 @@ passport.deserializeUser((_id, done) => {
 
 const db = require("./db/mongoDB");
 app.use(require("./routes/userBoards"));
+const socketURL = "https://simple-kanban.onrender.com/";
 
 //initialize web socket
-const io = require("socket.io")(http, {
+const io = require("socket.io")(socketURL, {
 	secure: true,
 	port: "10000",
 	cors: {
