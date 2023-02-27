@@ -3,8 +3,7 @@ A simple kanban web application meant to serve as a full stack design challenge.
 Currently, core features are being implemented for the front end, with user authentication and database managament to be added in the near future.
 
 Check out the latest deployed version here: \
-Warning: render.com automatically puts the server to sleep after 15 minutes of inactivity and it takes 30 seconds for the server to go back up. \
-Please do not put sensitive information inside the application, passwords are hashed but boards are not! \
+Warning: only frontend is deployed, feel free to test it out in your own local server \
 test accounts for application: \
   a@gmail.com 123456789 \
   b@gmail.com 123456789 \
