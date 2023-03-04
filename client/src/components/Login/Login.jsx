@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 
 function Login(props) {
 	const navigate = useNavigate();
@@ -30,9 +30,9 @@ function Login(props) {
 	const handleClick = () => setShow(!show);
 
 	//auth params
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
+	const usernameRef = useRef();
+	const passwordRef = useRef();
+	const confirmPasswordRef = useRef();
 
 	//toggles form errors
 	const [isError, setIsError] = useState(false);
@@ -42,29 +42,15 @@ function Login(props) {
 
 	const { setUser } = useContext(UserContext);
 
-	//updates user inputted username and passwords
-	function updateUsername(event) {
-		setUsername(event.target.value);
-		setRegisterSuccess();
-	}
-
-	function updatePassword(event) {
-		setPassword(event.target.value);
-		setIsError(false);
-	}
-
-	function updateConfirmPassword(event) {
-		setConfirmPassword(event.target.value);
-		setIsErrorMatch(false);
-	}
-
 	//logins user by sending a request to server
 	async function login(event) {
 		event.preventDefault();
 
+		const user = usernameRef.current.value;
+		const pass = passwordRef.current.value;
 		const userLogin = {
-			username: username,
-			password: password,
+			username: user,
+			password: pass,
 		};
 		const auth = await fetch(`http://localhost:5000/user/login`, {
 			method: "POST",
@@ -102,15 +88,18 @@ function Login(props) {
 	async function signup(event) {
 		event.preventDefault();
 
+		const user = usernameRef.current.value;
+		const pass = passwordRef.current.value;
+		const confirmPass = confirmPasswordRef.current.value;
 		//guard clauses
-		if (password.length <= 8) {
+		if (pass.length <= 8) {
 			setIsError(true);
-		} else if (confirmPassword !== password) {
+		} else if (confirmPass !== pass) {
 			setIsErrorMatch(true);
 		} else {
 			const userSignup = {
-				username: username,
-				password: password,
+				username: user,
+				password: pass,
 			};
 			const register = await fetch(`http://localhost:5000/register`, {
 				method: "POST",
@@ -161,7 +150,7 @@ function Login(props) {
 					<form onSubmit={isLogin ? login : signup}>
 						<FormControl isRequired marginBottom="24px">
 							<FormLabel requiredIndicator>Email</FormLabel>
-							<Input type="email" value={username} onChange={updateUsername} />
+							<Input type="email" ref={usernameRef} />
 						</FormControl>
 
 						<FormControl isRequired isInvalid={isError} marginBottom="24px">
@@ -169,11 +158,7 @@ function Login(props) {
 								{isLogin ? "Password" : "Password (min. 8 characters)"}
 							</FormLabel>
 							<InputGroup maxW="450px">
-								<Input
-									type={show ? "text" : "password"}
-									value={password}
-									onChange={updatePassword}
-								/>
+								<Input type={show ? "text" : "password"} ref={passwordRef} />
 								<InputRightElement>
 									<IconButton
 										icon={<ViewIcon />}
@@ -207,11 +192,7 @@ function Login(props) {
 								marginBottom="24px"
 							>
 								<FormLabel requiredIndicator>Confirm Password</FormLabel>
-								<Input
-									type="password"
-									value={confirmPassword}
-									onChange={updateConfirmPassword}
-								/>
+								<Input type="password" ref={confirmPasswordRef} />
 
 								<FormErrorMessage marginTop={0}>
 									Password do not match. Please try again.
