@@ -48,17 +48,18 @@ function App() {
 			socket.off("connect");
 			socket.off("disconnect");
 		};
-	}, [isConnected, socket, user._id]);
+	}, [isConnected, socket]);
 
 	//logout user and resets user context
 	async function logout() {
-		navigate("/login");
 		await fetch(`http://localhost:5000/user/logout`, {
 			method: "GET",
 			credentials: "include",
 			withCredentials: true,
+		}).then(() => {
+			setUser({});
+			navigate("/login");
 		});
-		setUser({});
 	}
 
 	return (

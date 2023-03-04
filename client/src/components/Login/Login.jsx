@@ -67,18 +67,22 @@ function Login(props) {
 
 		//if auth is successful, fetch user data
 		if (authRes.success) {
-			const data = await fetch(`http://localhost:5000/user/get`, {
+			await fetch(`http://localhost:5000/user/get`, {
 				method: "GET",
 				credentials: "include",
 				withCredentials: true,
 				headers: {
 					"Content-Type": "application/json",
 				},
-			});
-			const userData = await data.json();
-			setUser(userData);
-			setIsError(false);
-			navigate("/boards");
+			})
+				.then((response) => {
+					return response.json();
+				})
+				.then((jsonData) => {
+					setUser(jsonData);
+					setIsError(false);
+					navigate("/boards");
+				});
 		} else {
 			setIsError(true);
 		}
@@ -101,7 +105,7 @@ function Login(props) {
 				username: user,
 				password: pass,
 			};
-			const register = await fetch(`http://localhost:5000/register`, {
+			await fetch(`http://localhost:5000/user/register`, {
 				method: "POST",
 				credentials: "include",
 				withCredentials: true,
@@ -111,15 +115,17 @@ function Login(props) {
 					Accept: "application/json",
 					"Access-Control-Allow-Origin": "http://localhost:3000/",
 				},
-			});
-			const registerRes = await register.json();
-			setRegisterSuccess(registerRes.success);
-
-			if (registerRes.success) {
-				//on sucessful register, logs user in
-				login(event);
-				navigate("/boards");
-			}
+			})
+				.then((response) => {
+					return response.json();
+				})
+				.then((successData) => {
+					if (successData.success) {
+						setRegisterSuccess(successData.success);
+						login(event);
+						navigate("/boards");
+					}
+				});
 		}
 	}
 
