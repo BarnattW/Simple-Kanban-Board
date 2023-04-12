@@ -1,6 +1,6 @@
 A simple kanban web application meant to serve as a full stack design challenge.
 
-Currently, core features are being implemented for the front end, with user authentication and database managament to be added in the near future.
+MIGRATED TO NEXT.JS. CHECK OUT A WORKING VERSION HERE: \
 
 Check out the latest deployed version here: \
 Warning: only frontend is deployed, feel free to test it out in your own local server \
