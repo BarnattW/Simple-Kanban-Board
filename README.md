@@ -2,14 +2,6 @@ A simple kanban web application meant to serve as a full stack design challenge.
 
 MIGRATED TO NEXT.JS. CHECK OUT A WORKING VERSION HERE: \
 
-Check out the latest deployed version here: \
-Warning: only frontend is deployed, feel free to test it out in your own local server \
-test accounts for application: \
-  a@gmail.com 123456789 \
-  b@gmail.com 123456789 \
-https://simplekanbanboardio.netlify.app/ 
-
-
 Timeline: \
 1/26/23 -Project Start\
 1/29/23 -Drag and Drop implemented\
