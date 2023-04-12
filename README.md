@@ -1,6 +1,6 @@
 A simple kanban web application meant to serve as a full stack design challenge.
 
-MIGRATED TO NEXT.JS. CHECK OUT A WORKING VERSION HERE: 
+MIGRATED TO NEXT.JS. CHECK OUT A WORKING VERSION HERE: https://simplekanbanboardio.netlify.app/login
 
 Timeline: \
 1/26/23 -Project Start\
